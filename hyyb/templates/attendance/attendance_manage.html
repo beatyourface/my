@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% from 'bootstrap/pagination.html' import render_pagination %}
+
+{% block title %}管理-出勤{% endblock %}
+
+{% block content %}
+    <div class="page-header">
+        <h1>出勤
+            <small class="text-muted">{{ pagination.total }}</small>
+            <span class="float-right">
+                <a class="btn btn-primary btn-sm" href="{{ url_for('.attendance_new') }}">New</a>
+            </span>
+        </h1>
+    </div>
+    {% if attendances %}
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>No.</th>
+                <th>员工</th>
+                <th>日期</th>
+                <th>上午</th>
+                <th>下午</th>
+                <th>公差</th>
+                <th>其他</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            {% for attendance in attendances %}
+                <tr>
+                    <td>{{ loop.index + ((page - 1) * config.HYYB_ATTENDANCE_MANAGE_PER_PAGE) }}</td>
+                    <td>{{ attendance.stuff.designation }}</td>
+                    <td>{{ attendance.datestamp }}</td>
+                    <td>{{ attendance.am }}</td>
+                    <td>{{ attendance.pm }}</td>
+                    <td>{{ attendance.trip }}</td>
+                    <TD>{{ attendance.othr }}</TD>
+
+                    <td>
+                        <a class="btn btn-info btn-sm" href="{{ url_for('.attendance_edit', attendance_id=attendance.id) }}">Edit</a>
+                        <form class="inline" method="post" action="{{ url_for('.attendance_delete', attendance_id=attendance.id) }}">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                            <button type="submit" class="btn btn-danger btn-sm"
+                                    onclick="return confirm('确定删除?');">Delete
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+        <div class="page-footer">{{ render_pagination(pagination) }}</div>
+    {% else %}
+        <div class="tip"><h5>没有消息.</h5></div>
+    {% endif %}
+{% endblock %}

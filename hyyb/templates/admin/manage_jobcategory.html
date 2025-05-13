@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% from 'bootstrap/pagination.html' import render_pagination %}
+
+{% block title %}管理-工作分类{% endblock %}
+
+{% block content %}
+    <div class="page-header">
+        <h1>工作分类
+            <small class="text-muted">{{ pagination.total }}</small>
+            <span class="float-right"><a class="btn btn-primary btn-sm"
+                                         href="{{ url_for('.new_jobcategory') }}">New</a></span>
+        </h1>
+    </div>
+    {% if jobcategories %}
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>No.</th>
+                <th>名称</th>
+                <th>分数</th>
+                <th>其他</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            {% for jobcategory in jobcategories %}
+                <tr>
+                    <td>{{ loop.index + ((page - 1) * config.HYYB_JOBCATEGORY_MANAGE_PER_PAGE) }}</td>
+                    <td><a>{{ jobcategory.designation }}</a>
+                    </td>
+                    <td>{{ jobcategory.score }}</td>
+                    <TD>{{ jobcategory.othr }}</TD>
+                    <td>
+                        {% if jobcategory.id != 1 %}
+                            <a class="btn btn-info btn-sm"
+                               href="{{ url_for('.edit_jobcategory', jobcategory_id=jobcategory.id) }}">Edit</a>
+
+                            <form class="inline" method="post"
+                                  action="{{ url_for('.delete_jobcategory', jobcategory_id=jobcategory.id) }}">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                                <button type="submit" class="btn btn-danger btn-sm"
+                                        onclick="return confirm('Are you sure?');">Delete
+                                </button>
+                            </form>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+        <div class="page-footer">{{ render_pagination(pagination) }}</div>
+        <p class="text-muted">Tips: 删除工作分类不会删除其下的工作记录，其下的工作记录会被移动到默认工作分类.</p>
+    {% else %}
+        <div class="tip"><h5>无工作分类.</h5></div>
+    {% endif %}
+{% endblock %}

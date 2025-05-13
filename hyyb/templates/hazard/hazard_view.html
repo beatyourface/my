@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% from 'bootstrap/pagination.html' import render_pagination %}
+
+{% block title %}查看-隐患{% endblock %}
+
+{% block content %}
+    <div class="page-header">
+        <h1>隐患
+            <small class="text-muted">{{ pagination.total }}</small>
+
+        </h1>
+    </div>
+    {% if hazards %}
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>No.</th>
+                <th>车间</th>
+                <th>内容</th>
+                <th>材料</th>
+                <th>材料准备</th>
+                <th>材料负责人</th>
+                <th>协作人员</th>
+                <th>方案</th>
+                <th>负责人</th>
+                <th>其他</th>
+                <th>需停车</th>
+
+
+            </tr>
+            </thead>
+            {% for hazard in hazards %}
+                <tr>
+                    <td>{{ loop.index + ((page - 1) * config.HYYB_HAZARD_PER_PAGE) }}</td>
+                    <td>{{ hazard.department.designation }}</td>
+                    <td>{{ hazard.content }}</td>
+                    <td>{{ hazard.material }}</td>
+                    <td>{{ hazard.material_ok }}</td>
+                    <td>{{ hazard.director }}</td>
+                    <td>{{ hazard.cooperators }}</td>
+                    <td>{{ hazard.scheme }}</td>
+                    <td>{{ hazard.leader }}</td>
+                    <td>{{ hazard.others }}</td>
+                    <td>{{ hazard.onstop }}</td>
+
+
+                </tr>
+            {% endfor %}
+        </table>
+        <div class="page-footer">{{ render_pagination(pagination) }}</div>
+    {% else %}
+        <div class="tip"><h5>没有隐患.</h5></div>
+    {% endif %}
+{% endblock %}

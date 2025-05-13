@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% from 'bootstrap/pagination.html' import render_pagination %}
+
+{% block title %}备件存取记录{% endblock %}
+
+{% block content %}
+    <div class="page-header">
+        <h1>记录
+            <small class="text-muted">{{ pagination.total }}</small>
+
+        </h1>
+    </div>
+    {% if opts %}
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>操作时间</th>
+                <th>人员</th>
+                <th>存取</th>
+                <th>数量</th>
+                <th>备件</th>
+                <th>仓库</th>
+            </tr>
+            </thead>
+            {% for opt in opts %}
+                <tr>
+                    <td>{{ moment(opt.timestamp).format('YY-MM-DD HH:mm') }}</td>
+                    <td>{{ opt.author }}</td>
+                    <td>
+                        {% if opt.obtain==1 %}
+                            {{ '取用' }}
+                        {% elif opt.obtain==2 %}
+                            {{ '报废' }}
+                        {% elif opt.obtain==3 %}
+                            {{ '存回' }}
+                        {% endif %}
+                    </td>
+                    <td>{{ opt.quantity }}</td>
+                    <td><a href="{{ url_for('spare.spare_show', spare_id=opt.spare_id) }}">{{ opt.spare.designation }}</a></td>
+                    <td>{{ opt.spare.departmentp.designation }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+        <div class="page-footer">{{ render_pagination(pagination) }}</div>
+    {% else %}
+        <div class="tip"><h5>没有备件存取记录.</h5></div>
+    {% endif %}
+{% endblock %}

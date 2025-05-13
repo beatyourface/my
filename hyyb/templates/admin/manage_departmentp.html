@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% from 'bootstrap/form.html' import render_form %}
+
+{% block title %}管理-仓库{% endblock %}
+
+{% block content %}
+    <div class="page-header">
+        <h1>仓库
+            <small class="text-muted">{{ departmentps|length }}</small>
+            <span class="float-right"><a class="btn btn-primary btn-sm"
+                                         href="{{ url_for('.new_departmentp') }}">New</a></span>
+        </h1>
+    </div>
+    {% if departmentps %}
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>No.</th>
+                <th>名称</th>
+                <th>其他</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            {% for departmentp in departmentps %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td><a href="{{ url_for('admin.show_departmentp', departmentp_id=departmentp.id) }}">{{ departmentp.designation }}</a>
+                    </td>
+                    <TD>{{ departmentp.othr }}</TD>
+                    <td>
+                        {% if departmentp.id != 1 %}
+                            <a class="btn btn-info btn-sm"
+                               href="{{ url_for('.edit_departmentp', departmentp_id=departmentp.id) }}">Edit</a>
+
+                            <form class="inline" method="post"
+                                  action="{{ url_for('.delete_departmentp', departmentp_id=departmentp.id) }}">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                                <button type="submit" class="btn btn-danger btn-sm"
+                                        onclick="return confirm('Are you sure?');">Delete
+                                </button>
+                            </form>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+        <p class="text-muted">Tips: 删除仓库不会删除其下的备件记录，其下的备件记录会被移动到默认备件分类.</p>
+    {% else %}
+        <div class="tip"><h5>无仓库.</h5></div>
+    {% endif %}
+{% endblock %}

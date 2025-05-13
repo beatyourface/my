@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% from 'bootstrap/pagination.html' import render_pagination %}
+
+{% block title %}查看-出勤{% endblock %}
+
+{% block content %}
+    <div class="page-header">
+        <h1>出勤
+            <small class="text-muted">{{ pagination.total }}</small>
+
+        </h1>
+    </div>
+    {% if attendances %}
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>No.</th>
+                <th>员工</th>
+                <th>日期</th>
+                <th>上午</th>
+                <th>下午</th>
+                <th>公差</th>
+                <th>其他</th>
+            </tr>
+            </thead>
+            {% for attendance in attendances %}
+                <tr>
+                    <td>{{ loop.index + ((page - 1) * config.HYYB_ATTENDANCE_PER_PAGE) }}</td>
+                    <td>{{ attendance.stuff.designation }}</td>
+                    <td>{{ attendance.datestamp }}</td>
+                    <td>{{ attendance.am }}</td>
+                    <td>{{ attendance.pm }}</td>
+                    <td>{{ attendance.trip }}</td>
+                    <TD>{{ attendance.othr }}</TD>
+
+                </tr>
+            {% endfor %}
+        </table>
+        <div class="page-footer">{{ render_pagination(pagination) }}</div>
+    {% else %}
+        <div class="tip"><h5>没有出勤.</h5></div>
+    {% endif %}
+{% endblock %}

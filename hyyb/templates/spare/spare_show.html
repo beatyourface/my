@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% from 'bootstrap/form.html' import render_form %}
+
+{% block title %}详情-备件{% endblock %}
+
+{% block content %}
+    <div class="page-header">
+        <h1>{{ spare.departmentp.designation}}-{{ spare.designation }}</h1>
+    </div>
+
+    <table class="table table-condensed table-hover">
+      <tr>
+        <th>No</th>
+        <td>{{ spare.id }}</td>
+      </tr>
+      <tr>
+        <th>仓库</th>
+        <td>{{ spare.departmentp.designation}}</td>
+      </tr>
+        <tr>
+        <th>名称</th>
+        <td>{{ spare.designation }}</td>
+      </tr>
+        <tr>
+        <th>型号</th>
+        <td>{{ spare.model }}</td>
+      </tr>
+          <tr>
+        <th>数量</th>
+        <td ><span style="color:red">{{ spare.quantity }}</span>  {{ spare.unit }}</td>
+      </tr>
+          <tr>
+        <th>用途</th>
+        <td>{{ spare.purpose }}</td>
+      </tr>
+          <tr>
+        <th>货架</th>
+        <td>{{ spare.shelve }}</td>
+          </tr>
+              <tr>
+        <th>架层</th>
+        <td>{{ spare.rack }}</td>
+    </tr>
+        <tr>
+        <th>序号</th>
+        <td>{{ spare.serialnum }}</td>
+      </tr>
+          <tr>
+        <th>位置</th>
+        <td>{{ spare.place }}</td>
+      </tr>
+          <tr>
+        <th>单价（元）</th>
+        <td>{{ spare.price }}</td>
+      </tr>
+          <tr>
+        <th>其他</th>
+        <td>{{ spare.othr }}</td>
+      </tr>
+    <tr>
+      </tr>
+    </table>
+    <hr/>
+    <hr/>
+    {% if current_user.is_authenticated %}
+        {{ render_form(opt_form) }}
+    {% endif %}
+{% endblock %}

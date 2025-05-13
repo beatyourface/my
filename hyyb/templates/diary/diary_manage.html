@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% from 'bootstrap/pagination.html' import render_pagination %}
+
+{% block title %}管理-日志{% endblock %}
+
+{% block content %}
+    <div class="page-header">
+        <h1>日志
+            <small class="text-muted">{{ pagination.total }}</small>
+            <span class="float-right">
+                <a class="btn btn-primary btn-sm" href="{{ url_for('.diary_new') }}">New</a>
+            </span>
+        </h1>
+    </div>
+    {% if diaries %}
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>No.</th>
+                <th>作业人</th>
+                <th>起始</th>
+                <th>结束</th>
+                <th>内容</th>
+                <th>工作分类</th>
+                <th>确认人</th>
+                <th>日期</th>
+                <th>系数</th>
+                <th>其他</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            {% for diary in diaries %}
+                <tr>
+                    <td>{{ loop.index + ((page - 1) * config.HYYB_DIARY_MANAGE_PER_PAGE) }}</td>
+                    <td>{{ diary.worker }}</td>
+                    <td>{{ diary.start_time }}</td>
+                    <td>{{ diary.end_time }}</td>
+                    <td><a href="{{ url_for('diary.diary_view') }}">{{ diary.content|striptags|truncate(8) }}...</a></td>
+                    <td>{{ diary.jobcategory.designation }}</td>
+                    <td>{{ diary.auditor }}</td>
+                    <td>{{ diary.datestamp }}</td>
+                    <td>{{ diary.factor }}</td>
+                    <td>{{ diary.othr }}</td>
+
+                    <td>
+                        <a class="btn btn-info btn-sm" href="{{ url_for('.diary_edit', diary_id=diary.id) }}">Edit</a>
+                        <form class="inline" method="post" action="{{ url_for('.diary_delete', diary_id=diary.id) }}">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                            <button type="submit" class="btn btn-danger btn-sm"
+                                    onclick="return confirm('确定删除?');">Delete
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+        <div class="page-footer">{{ render_pagination(pagination) }}</div>
+    {% else %}
+        <div class="tip"><h5>没有日志.</h5></div>
+    {% endif %}
+{% endblock %}

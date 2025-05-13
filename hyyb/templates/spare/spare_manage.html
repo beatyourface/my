@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% from 'bootstrap/pagination.html' import render_pagination %}
+
+{% block title %}管理-备件{% endblock %}
+
+{% block content %}
+    <div class="page-header">
+        <h1>备件
+            <small class="text-muted">{{ pagination.total }}</small>
+            <span class="float-right">
+                <a class="btn btn-primary btn-sm" href="{{ url_for('.spare_new') }}">New</a>
+            </span>
+        </h1>
+    </div>
+        <div class="row" style="float:right">
+        <form method="post">
+            {{ seek_form.csrf_token }} <!-- 渲染 CSRF 令牌隐藏字段 -->
+            检索->名称：{{ seek_form.designation1 }}
+            {{ seek_form.submit }}
+        </form>
+    </div>
+    {% if spares %}
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>No.</th>
+                <th>仓库</th>
+                <th>名称</th>
+                <th>型号</th>
+                <th>数量</th>
+                <th>单位</th>
+
+                <th>操作</th>
+            </tr>
+            </thead>
+            {% for spare in spares %}
+                <tr>
+                    <td>{{ loop.index + ((page - 1) * config.HYYB_SPARE_MANAGE_PER_PAGE) }}</td>
+                    <td>{{ spare.departmentp.designation }}</td>
+                    <td>{{ spare.designation }}</td>
+                    <td>{{ spare.model }}</td>
+                    <td>{{ spare.quantity }}</td>
+                    <td>{{ spare.unit }}</td>
+
+                    <td>
+                        <a class="btn btn-info btn-sm" href="{{ url_for('.spare_edit', spare_id=spare.id) }}">Edit</a>
+                        <form class="inline" method="post" action="{{ url_for('.spare_delete', spare_id=spare.id) }}">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                            <button type="submit" class="btn btn-danger btn-sm"
+                                    onclick="return confirm('确定删除?');">Delete
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+        <div class="page-footer">{{ render_pagination(pagination) }}</div>
+    {% else %}
+        <div class="tip"><h5>没有备件.</h5></div>
+    {% endif %}
+{% endblock %}

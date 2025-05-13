@@ -1,0 +1,147 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Apr  9 07:35:44 2025
+
+@author: Administrator
+"""
+from datetime import datetime
+
+from flask_login import UserMixin
+from werkzeug.security import generate_password_hash, check_password_hash
+
+from hyyb.extensions import db
+
+class Admin(db.Model, UserMixin):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(20))
+    password_hash = db.Column(db.String(128))
+    privilege = db.Column(db.Integer,default=0)
+    title = db.Column(db.String(60))
+    others = db.Column(db.String(60))
+    
+    stuff_id=db.Column(db.Integer,db.ForeignKey('Stuff.id')) 
+
+    def set_password(self, password='123456'):
+        self.password_hash = generate_password_hash(password)
+
+    def validate_password(self, password):
+        return check_password_hash(self.password_hash, password)
+    
+class Stuff(db.Model):
+    id = db.Column(db.Integer,primary_key=True)
+    num = db.Column(db.Integer,unique=True)
+    name = db.Column(db.String(20))
+    gendar = db.Column(db.Boolean, default=True)
+    dcome = db.Column(db.Date)
+    school = db.Column(db.String(60))
+    degree = db.Column(db.String(20))
+    phone = db.Column(db.String(20))
+    addr = db.Column(db.String(100))
+    department = db.Column(db.String(20))
+    group = db.Column(db.Integer)
+    status = db.Column(db.string(20))
+    manage = db.Column(db.Boolean, default=False)
+    others = db.Column(db.String(60))
+    
+    attendances = db.relationship('Attendance',back_populates='stuff')
+    
+class Attendance(db.Model):
+    id = db.Column(db.Integer,primary_key=True)
+    datestamp = db.Column(db.Date)
+    am = db.Columnn(db.Boolean,default=True)
+    pm = db.Columnn(db.Boolean,default=True)
+    trip = db.Columnn(db.Boolean,default=False)
+    others = db.Column(db.String(60))
+    
+    stuff_id=db.Column(db.Integer,db.ForeignKey('Stuff.id'))
+    
+    stuff = db.relationship('Stuff',back_populates='attendances')
+    
+class Hazard(db.Model):
+    id = db.Column(db.Integer,primary_key=True)
+    content = db.Column(db.Text)
+    material = db.Column(db.Text)
+    material_ok = db.Colunm(db.Boolean,default=False)
+    director = db.Column(db.String(20))
+    cooperators = db.Column(db.String(100))
+    scheme = db.Column(db.Text)
+    leader = db.Column(db.String(20))
+    others = db.Column(db.String(60))
+    onstop = db.Column(db.Boolean,default=False)
+    
+    department_id = db.Column(db.Integer,db.ForeignKey('Department.id'))
+    
+    department =db.relationship('Department',back_populates='hazards')
+    
+class Department(db.Model):
+    id = db.Column(db.Integer,primary_key=True)
+    name = db.Column(db.String(20)) 
+    others = db.Column(db.String(60))
+    
+    Hazards = db.relationship('Hazard',back_populates='department')
+    
+class Spare(db.Model):
+    id = db.Column(db.Integer,primary_key=True)
+    timestamp = db.Column(db.datestamp,default=datetime.utcnow, index=True)
+    name = db.Column(db.String(80))
+    model = db.Column(db.String(80))
+    quantity = db.Column(db.Integer)
+    unit = db.Column(db.String(20))
+    usage = db.Column(db.String(60))
+    shelve = db.Column(db.Integer)
+    rack = db.Column(db.Integer)
+    serialnum = db.Column(db.Integer)
+    place = db.Column(db.String(60))
+    price = db.Column(db.Float) 
+    others = db.Column(db.String(60))
+    
+    departmentp_id = db.Column(db.Integer,db.ForeignKey('Departmentp.id'))
+    
+    departmentp = db.relationship('Departmentp',back_populates='spares')
+    
+class Departmentp(db.Model):
+    id = db.Column(db.Integer,primary_key=True)
+    name = db.Column(db.String(20))
+    others = db.Column(db.String(60))
+    
+    spares = db.relationship('Spare',back_populates='dpartmentp')
+    
+class Diary(db.Model):
+    id = db.Column(db.Integer,primary_key=True)
+    date = db.Column(db.date)
+    worker = db.Column(db.String(20))
+    start = db.column(db.Datetime)
+    duration = db.Column(db.Interval)
+    content = db.Column(db.Text)
+    auditor = db.Column(db.String(20))
+    timestramp = db.Column(db.Datetime,default=datetime.utcnow, index=True)
+    factor =  db.Column(db.Float)
+    others = db.Column(db.String(60))
+    
+    jdc_id = db.Column(db.Integer)
+    
+    jbc = db.relationship('Jobcategory',back_populates='diarys')
+    
+class Jobcategory(db.Model):
+    id = db.Column(db.Integer,primary_key=True)
+    name = db.Column(db.String(80))
+    score = db.Column(db.Float)
+    others = db.Column(db.String(60))
+    
+    diarys = db.relationship('Diary',back_populates='jbc')
+    
+    def delete(self):
+        default_jbc = Jobcategory.query.get(1)
+        diarys = self.diarys[:]
+        for diary in diarys:
+            diary.jbc=default_jbc
+        db.session.delete(self)
+        db.session.commit()
+
+class Message(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(20))
+    body = db.Column(db.String(200))
+    timestamp = db.Column(db.DateTime, default=datetime.utcnow, index=True)
+    others = db.Column(db.String(60))
+    

@@ -1,0 +1,29 @@
+
+<div class="list-group">
+    {% if messages %}
+
+        {% for message in messages %}
+            <a class="list-group-item list-group-item-action flex-column">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1 text-success">
+                        {{ message.designation }}
+                    </h5>
+                    <small data-toggle="tooltip" data-placement="top"
+                           data-timestamp="{{ message.timestamp.strftime('%Y-%m-%dT%H:%M:%SZ') }}"
+                           data-delay="500">
+                        {{ moment(message.timestamp).fromNow(refresh=True) }}
+                    </small>
+                </div>
+				<small style="color: cadetblue">{{ message.othr }}</small>
+                <p class="mb-1">{{ message.body }}</p>
+                <small class="text-muted"> {{ loop.index + ((page - 1) * config.HYYB_MESSAGE_PER_PAGE) }}</small>
+                <small style="color: gray;float: right;" >
+                    {{ message.author }}
+                </small>
+            </a>
+        {% endfor %}
+    {% else %}
+        <div class="tip"><h5>没有消息.</h5></div>
+
+    {% endif %}
+</div>

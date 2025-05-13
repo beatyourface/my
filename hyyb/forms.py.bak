@@ -1,0 +1,138 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Apr  9 07:35:55 2025
+
+@author: Administrator
+"""
+from flask_ckeditor import CKEditorField
+from flask_wtf import FlaskForm
+from wtforms import StringField, SubmitField, SelectField, TextAreaField, ValidationError, HiddenField, \
+    BooleanField, PasswordField,IntegerField,DateField,FloatField,DateTimeField
+from wtforms.validators import DataRequired, Email, Length, Optional, URL,NumberRange
+
+from hyyb.models import Department,Departmentp,Jobcategory,Stuff
+
+class LoginForm(FlaskForm):
+    username = StringField('Username', validators=[DataRequired(), Length(1, 20)])
+    password = PasswordField('Password', validators=[DataRequired(), Length(1, 128)])
+    remember = BooleanField('Remember me')
+    
+    submit = SubmitField('Log in')
+    
+class SettingForm(FlaskForm):
+    title = StringField('Title', validators=[DataRequired(), Length(1, 60)])
+    others = StringField('Others', validators=[DataRequired(), Length(1, 60)])
+
+    submit = SubmitField()
+    
+class StuffForm(FlaskForm):
+    num = IntegerField('Num', validators=[DataRequired(), NumberRange(1,5000)])
+    name = StringField('Name', validators=[DataRequired(), Length(1, 20)])
+    gendar = BooleanField('Female',default=0)
+    dcome = DateField('Dcome',validators=[DataRequired()]) #
+    school = StringField('School', validators=[DataRequired(), Length(1, 60)])
+    degree = StringField('Degree', validators=[DataRequired(), Length(1, 20)])
+    phone = StringField('Phone', validators=[DataRequired(), Length(1, 20)])
+    addr = StringField('Addr', validators=[DataRequired(), Length(1, 100)])
+    department = StringField('Department', validators=[DataRequired(), Length(1, 20)])
+    group = IntegerField('Group', validators=[DataRequired(), NumberRange(1,4)])
+    status = StringField('Status', validators=[DataRequired(), Length(1, 20)])
+    manage = BooleanField('Manage',default=0)
+    others = StringField('Others', validators=[DataRequired(), Length(1, 60)])
+    
+    submit = SubmitField()
+    
+class AttendanceForm(FlaskForm):
+    datestamp = DateField('Datestamp',validators=[DataRequired()]) #
+    am = BooleanField('AM')
+    pm = BooleanField('PM')
+    trip = BooleanField('Trip')
+    others = StringField('Others', validators=[DataRequired(), Length(1, 60)])
+    
+    submit = SubmitField()
+    
+class HazardForm(FlaskForm):
+    department = SelectField('Department', coerce=int, default=1) ##
+    content = CKEditorField('Content', validators=[DataRequired()])
+    material = CKEditorField('Material', validators=[DataRequired()])
+    material_ok = BooleanField('Material_ok')
+    director = StringField('Director', validators=[DataRequired(), Length(1, 20)])
+    cooperators = StringField('Cooperators', validators=[DataRequired(), Length(1, 100)])
+    scheme = CKEditorField('Scheme', validators=[DataRequired()])
+    leader = StringField('Leader', validators=[DataRequired(), Length(1, 20)])
+    others = StringField('Others', validators=[DataRequired(), Length(1, 60)])
+    onstop = BooleanField('Onstop')
+    
+    submit = SubmitField()
+    
+    def __init__(self, *args, **kwargs):
+        super(HazardForm, self).__init__(*args, **kwargs)
+        self.department.choices = [(department.id, department.name)
+                                 for department in Department.query.order_by(Department.name).all()]
+    
+class DepartmentForm(FlaskForm):
+    name = StringField('Name', validators=[DataRequired(), Length(1, 20)])
+    others = StringField('Others', validators=[DataRequired(), Length(1, 60)])
+   
+    submit = SubmitField()
+    
+class SpareForm(FlaskForm):
+    departmentp = SelectField('Departmentp', coerce=int, default=1) ##
+    name = StringField('Name', validators=[DataRequired(), Length(1, 80)])
+    model = StringField('Model', validators=[DataRequired(), Length(1, 80)])
+    quantity = IntegerField('Quantity', validators=[DataRequired(), NumberRange(1,500)])
+    unit = StringField('Unit', validators=[DataRequired(), Length(1, 20)])
+    usage = StringField('Usage', validators=[DataRequired(), Length(1, 60)])
+    shelve = IntegerField('Shelve', validators=[DataRequired(), NumberRange(1,50)])
+    rack = IntegerField('Rack', validators=[DataRequired(), NumberRange(1,50)])
+    serialnum = IntegerField('Serialnum', validators=[DataRequired(), NumberRange(1,50)])
+    place = StringField('Place', validators=[DataRequired(), Length(1, 60)])
+    price = FloatField('Price')
+    others = StringField('Others', validators=[DataRequired(), Length(1, 60)])
+    
+    submit = SubmitField()
+    
+    def __init__(self, *args, **kwargs):
+        super(SpareForm, self).__init__(*args, **kwargs)
+        self.departmentp.choices = [(departmentp.id, departmentp.name)
+                                 for departmentp in Departmentp.query.order_by(Departmentp.name).all()]
+    
+class DepartmentpFrom(FlaskForm):
+    name = StringField('Name', validators=[DataRequired(), Length(1, 20)])
+    others = StringField('Others', validators=[DataRequired(), Length(1, 60)])
+   
+    submit = SubmitField()
+    
+class DiaryForm(FlaskForm):
+    date = DateField('Date',validators=[DataRequired()]) #
+    worker = StringField('Worker', validators=[DataRequired(), Length(1, 20)])
+    start = DateTimeField('Start')
+    duration = DateTimeField('Duration')
+    content = CKEditorField('Content', validators=[DataRequired()])
+    jbc = SelectField('Jobcategory', coerce=int, default=1) ##
+    auditor = StringField('Auditor', validators=[DataRequired(), Length(1, 20)])
+    factor = FloatField('Factor',NumberRange(0.1,10.0))
+    others = StringField('Others', validators=[DataRequired(), Length(1, 60)])
+    
+    submit = SubmitField()
+    
+    def __init__(self, *args, **kwargs):
+        super(DiaryForm, self).__init__(*args, **kwargs)
+        self.jbc.choices = [(jbc.id, jbc.name)
+                                 for jbc in Jobcategory.query.order_by(Jobcategory.name).all()]
+    
+class JobcategoryForm(FlaskForm):
+    name = StringField('Name', validators=[DataRequired(), Length(1, 20)])
+    score = FloatField('Score',NumberRange(0.5,30.0))
+    others = StringField('Others', validators=[DataRequired(), Length(1, 60)])
+   
+    submit = SubmitField()
+    
+class MessageForm(FlaskForm):
+    name = StringField('Name', validators=[DataRequired(), Length(1, 20)])
+    body = TextAreaField('Message', validators=[DataRequired(), Length(1, 200)])
+    others = StringField('Others', validators=[DataRequired(), Length(1, 60)])
+    
+    submit = SubmitField()
+    
+    

@@ -1,0 +1,115 @@
+{% from 'bootstrap/nav.html' import render_nav_item %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block head %}
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>{% block title %}{% endblock title %} - {{ admin.title|default('Admin Title') }}</title>
+        <link rel="icon" href="{{ url_for('static', filename='favicon1.ico') }}">
+        <link rel="stylesheet"
+              href="{{ url_for('static', filename='css/%s.min.css' % request.cookies.get('theme', 'perfect_blue')) }}"
+              type="text/css">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" type="text/css">
+    {% endblock head %}
+</head>
+<body style="font-size: 14px;">
+{% block nav %}
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="{{ url_for('message.index') }}">{{ admin.title }}</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01"
+                    aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarColor01">
+                <ul class="navbar-nav mr-auto">
+                    {{ render_nav_item('message.index', '消息') }}
+                    {{ render_nav_item('spare.spare_view', '备件') }}
+                    {{ render_nav_item('hazard.hazard_view', '隐患') }}
+                    {{ render_nav_item('diary.diary_view', '日志') }}
+                    {{ render_nav_item('attendance.attendance_view', '出勤') }}
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                    {% if current_user.is_authenticated %}
+                        <li class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
+                               aria-haspopup="true"
+                               aria-expanded="false">
+                                新建 <span class="caret"></span>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ url_for('admin.new_jobcategory') }}">工作分类</a>
+                                <a class="dropdown-item" href="{{ url_for('admin.new_departmentp') }}">仓库</a>
+                                <a class="dropdown-item" href="{{ url_for('admin.new_department') }}">车间</a>
+                                <a class="dropdown-item" href="{{ url_for('admin.new_link') }}">Link</a>
+
+                                <a class="dropdown-item" href="{{ url_for('message.message_new') }}">消息</a>
+                                <a class="dropdown-item" href="{{ url_for('spare.spare_new') }}">备件</a>
+                                <a class="dropdown-item" href="{{ url_for('hazard.hazard_new') }}">隐患</a>
+                                <a class="dropdown-item" href="{{ url_for('diary.diary_new') }}">日志</a>
+                                <a class="dropdown-item" href="{{ url_for('attendance.attendance_new') }}">出勤</a>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
+                               aria-haspopup="true"
+                               aria-expanded="false">
+                                管理 <span class="caret"></span>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ url_for('admin.manage_jobcategory') }}">工作分类</a>
+                                <a class="dropdown-item" href="{{ url_for('admin.manage_departmentp') }}">仓库</a>
+                                <a class="dropdown-item" href="{{ url_for('admin.manage_department') }}">车间</a>
+                                <a class="dropdown-item" href="{{ url_for('admin.manage_link') }}">Link</a>
+
+                                <a class="dropdown-item" href="{{ url_for('message.message_manage') }}">消息</a>
+                                <a class="dropdown-item" href="{{ url_for('spare.spare_manage') }}">备件</a>
+                                <a class="dropdown-item" href="{{ url_for('hazard.hazard_manage') }}">隐患</a>
+                                <a class="dropdown-item" href="{{ url_for('diary.diary_manage') }}">日志</a>
+                                <a class="dropdown-item" href="{{ url_for('attendance.attendance_manage') }}">出勤</a>
+                            </div>
+                        </li>
+                        <div style="color:orange">你好！</div>{{ render_nav_item('admin.settings', current_user.stuff.designation) }}
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+{% endblock nav %}
+
+<main class="container">
+    {% for message in get_flashed_messages(with_categories=True) %}
+        <div class="alert alert-{{ message[0] }}" role="alert">
+            <button type="button" class="close" data-dismiss="alert">x</button>
+            {{ message[1] }}
+        </div>
+    {% endfor %}
+
+    {% block content %}{% endblock content %}
+    {% block footer %}
+        <footer>
+
+            <p class="float-right">
+                <small>
+                    {% if current_user.is_authenticated %}
+                        <a href="{{ url_for('auth.logout', next=request.full_path) }}">Logout</a>
+                    {% else %}
+                        <a href="{{ url_for('auth.login', next=request.full_path) }}">Login</a>
+                    {% endif %}
+                </small>
+            </p>
+        </footer>
+    {% endblock footer %}
+</main>
+
+{% block scripts %}
+    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-3.2.1.slim.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/popper.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/script.js') }}"></script>
+    {{ moment.include_moment(local_js=url_for('static', filename='js/moment-with-locales.min.js')) }}
+{% endblock %}
+</body>
+</html>
