@@ -210,6 +210,7 @@ class Opt(db.Model):
 
 class Seek(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    selector0 = db.Column(db.Integer, default=1)
     designation1 = db.Column(db.String(20), default='')
     designation2 = db.Column(db.String(20), default='')
     designation3 = db.Column(db.String(20), default='')

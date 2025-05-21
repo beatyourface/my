@@ -40,7 +40,7 @@ def attendance_new():
 def attendance_manage():
     page = request.args.get('page', 1, type=int)
     pagination = Attendance.query.order_by(Attendance.datestamp.desc()).paginate(
-        page, per_page=current_app.config['HYYB_ATTENDANCE_MANAGE_PER_PAGE'])
+        page=page, per_page=current_app.config['HYYB_ATTENDANCE_MANAGE_PER_PAGE'])
     attendances = pagination.items
     return render_template('attendance/attendance_manage.html',
                            page=page,
@@ -53,7 +53,7 @@ def attendance_manage():
 def attendance_view():
     page = request.args.get('page', 1, type=int)
     pagination = Attendance.query.order_by(Attendance.datestamp.desc()).paginate(
-        page, per_page=current_app.config['HYYB_ATTENDANCE_PER_PAGE'])
+        page=page, per_page=current_app.config['HYYB_ATTENDANCE_PER_PAGE'])
     attendances = pagination.items
     return render_template('attendance/attendance_view.html',
                            page=page,

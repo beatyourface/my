@@ -13,6 +13,9 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" type="text/css">
     {% endblock head %}
 </head>
+
+
+
 <body style="font-size: 14px;">
 {% block nav %}
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -27,8 +30,10 @@
                     {{ render_nav_item('message.index', '消息') }}
                     {{ render_nav_item('spare.spare_view', '备件') }}
                     {{ render_nav_item('hazard.hazard_view', '隐患') }}
-                    {{ render_nav_item('diary.diary_view', '日志') }}
-                    {{ render_nav_item('attendance.attendance_view', '出勤') }}
+                    <!-- -->
+                    <!--{{ render_nav_item('diary.diary_view', '日志') }}-->
+                   <!-- {{ render_nav_item('attendance.attendance_view', '出勤') }}-->
+
                 </ul>
 
                 <ul class="nav navbar-nav navbar-right">
@@ -40,7 +45,7 @@
                                 新建 <span class="caret"></span>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ url_for('admin.new_jobcategory') }}">工作分类</a>
+                                <!--<a class="dropdown-item" href="{{ url_for('admin.new_jobcategory') }}">工作分类</a>-->
                                 <a class="dropdown-item" href="{{ url_for('admin.new_departmentp') }}">仓库</a>
                                 <a class="dropdown-item" href="{{ url_for('admin.new_department') }}">车间</a>
                                 <a class="dropdown-item" href="{{ url_for('admin.new_link') }}">Link</a>
@@ -48,8 +53,9 @@
                                 <a class="dropdown-item" href="{{ url_for('message.message_new') }}">消息</a>
                                 <a class="dropdown-item" href="{{ url_for('spare.spare_new') }}">备件</a>
                                 <a class="dropdown-item" href="{{ url_for('hazard.hazard_new') }}">隐患</a>
-                                <a class="dropdown-item" href="{{ url_for('diary.diary_new') }}">日志</a>
-                                <a class="dropdown-item" href="{{ url_for('attendance.attendance_new') }}">出勤</a>
+
+                               <!-- <a class="dropdown-item" href="{{ url_for('diary.diary_new') }}">日志</a>-->
+                               <!-- <a class="dropdown-item" href="{{ url_for('attendance.attendance_new') }}">出勤</a>-->
                             </div>
                         </li>
                         <li class="nav-item dropdown">
@@ -59,7 +65,7 @@
                                 管理 <span class="caret"></span>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ url_for('admin.manage_jobcategory') }}">工作分类</a>
+                                <!--<a class="dropdown-item" href="{{ url_for('admin.manage_jobcategory') }}">工作分类</a>-->
                                 <a class="dropdown-item" href="{{ url_for('admin.manage_departmentp') }}">仓库</a>
                                 <a class="dropdown-item" href="{{ url_for('admin.manage_department') }}">车间</a>
                                 <a class="dropdown-item" href="{{ url_for('admin.manage_link') }}">Link</a>
@@ -67,11 +73,12 @@
                                 <a class="dropdown-item" href="{{ url_for('message.message_manage') }}">消息</a>
                                 <a class="dropdown-item" href="{{ url_for('spare.spare_manage') }}">备件</a>
                                 <a class="dropdown-item" href="{{ url_for('hazard.hazard_manage') }}">隐患</a>
-                                <a class="dropdown-item" href="{{ url_for('diary.diary_manage') }}">日志</a>
-                                <a class="dropdown-item" href="{{ url_for('attendance.attendance_manage') }}">出勤</a>
+
+                               <!-- <a class="dropdown-item" href="{{ url_for('diary.diary_manage') }}">日志</a>-->
+                                <!--<a class="dropdown-item" href="{{ url_for('attendance.attendance_manage') }}">出勤</a>-->
                             </div>
                         </li>
-                        <div style="color:orange">你好！</div>{{ render_nav_item('admin.settings', current_user.stuff.designation) }}
+                        <div style="color:orange;padding-top:7px">@</div>{{ render_nav_item('admin.settings', current_user.stuff.designation) }}
                     {% endif %}
                 </ul>
             </div>

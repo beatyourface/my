@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% from 'bootstrap/form.html' import render_form %}
+
+{% block title %}批量上传-备件{% endblock %}
+
+{% block content %}
+    <div class="page-header">
+        <h1>批量上传-备件</h1>
+    </div>
+
+            {{ render_form(form) }}
+    <p class="text-muted" style="padding-top:20px">Tips: 请先导出数据表格，按照格式添加后再增量（id值不得与已经存在的一样）导入;索引id值不得重复，并连续递增;注意仓库id与附表中仓库对应。</p>
+{% endblock %}

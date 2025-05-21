@@ -1,13 +1,15 @@
 from urllib import request
 
 from flask import render_template, flash, redirect, url_for, Blueprint, current_app, \
-    request, make_response, abort, session
+    request, make_response, abort, send_from_directory, session
 from flask_login import login_required, current_user
 
 from hyyb.forms import MessageForm
 from hyyb.models import Message, Seek
 from hyyb.extensions import db
 from hyyb.utils import redirect_back
+import os
+from flask_ckeditor import upload_success, upload_fail
 
 
 message_bp = Blueprint('message', __name__)
@@ -24,7 +26,7 @@ def index():
 
     page = request.args.get('page', 1, type=int)
     pagination = Message.query.order_by(Message.timestamp.desc()).paginate(
-        page, per_page=current_app.config['HYYB_MESSAGE_PER_PAGE'])
+        page=page, per_page=current_app.config['HYYB_MESSAGE_PER_PAGE'])
     messages = pagination.items
     return render_template('message/message_view.html',
                            page=page,
@@ -83,7 +85,7 @@ def message_delete(message_id):
 def message_manage():
     page = request.args.get('page', 1, type=int)
     per_page = current_app.config['HYYB_MESSAGE_MANAGE_PER_PAGE']
-    pagination = Message.query.order_by(Message.timestamp.desc()).paginate(page, per_page=per_page)
+    pagination = Message.query.order_by(Message.timestamp.desc()).paginate(page=page, per_page=per_page)
     messages = pagination.items
     return render_template('message/message_manage.html',
                            page=page,
@@ -99,3 +101,24 @@ def change_theme(theme_name):
     response = make_response(redirect_back())
     response.set_cookie('theme', theme_name, max_age=30 * 24 * 60 * 60)
     return response
+
+
+@message_bp.route('/message/uploads/<path:filename>')
+def get_file(filename):
+    return send_from_directory(current_app.config['HYYB_UPLOAD_PATH'], filename)
+
+
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in current_app.config['HYYB_ALLOWED_IMAGE_EXTENSIONS']
+
+
+# handle image upload for ckeditor
+@message_bp.route('/message/upload-ck', methods=['POST'])
+def upload_for_ckeditor():
+    f = request.files.get('upload')
+    if not allowed_file(f.filename):
+        return upload_fail('Image only!')
+    f.save(os.path.join(current_app.config['HYYB_UPLOAD_PATH'], f.filename))
+    url = url_for('get_file', filename=f.filename)
+    return upload_success(url, f.filename)

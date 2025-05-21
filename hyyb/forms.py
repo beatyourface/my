@@ -8,6 +8,7 @@ from flask_ckeditor import CKEditorField
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, SelectField, TextAreaField, ValidationError, HiddenField, \
     BooleanField, PasswordField, IntegerField, DateField, FloatField, DateTimeField
+from flask_wtf.file import FileField, FileRequired, FileAllowed
 from wtforms.validators import DataRequired, Email, Length, Optional, URL, NumberRange
 
 from hyyb.models import Department, Departmentp, Jobcategory, Stuff
@@ -147,7 +148,7 @@ class JobcategoryForm(FlaskForm):
 
 class MessageForm(FlaskForm):
     designation = StringField('名称', validators=[DataRequired(), Length(1, 20)])
-    body = TextAreaField('消息内容', validators=[DataRequired(), Length(1, 200)])
+    body = TextAreaField('消息内容', validators=[DataRequired()])
     othr = StringField('其他', validators=[DataRequired(), Length(1, 60)])
     
     submit = SubmitField()
@@ -161,6 +162,8 @@ class LinkForm(FlaskForm):
 
 
 class SeekForm(FlaskForm):
+    clear = SubmitField()
+    selector0 = SelectField('搜索', choices=[(1, '备件'), (2, '人员'), (3, '仓库')], default='1', coerce=int)
     designation1 = StringField('名称1', default='')
     designation2 = StringField('名称2', default='')
     designation3 = StringField('名称3', default='')
@@ -173,5 +176,11 @@ class OptForm(FlaskForm):
     quantity = IntegerField('数量', validators=[DataRequired(), NumberRange(1, 500)])
     obtain = SelectField('存取', choices=[(1, '取用'),(2, '报废'),  (3, '存回')], default='1', coerce=int)
     othr = StringField('其他', validators=[DataRequired(), Length(1, 60)])
+
+    submit = SubmitField()
+
+# upload form
+class UploadForm(FlaskForm):
+    doc = FileField('Upload excel', validators=[FileRequired(['xlsx'])])
 
     submit = SubmitField()

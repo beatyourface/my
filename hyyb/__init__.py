@@ -11,7 +11,7 @@ from logging.handlers import SMTPHandler, RotatingFileHandler
 import click
 from flask import Flask, render_template, request
 from flask_login import current_user
-from flask_sqlalchemy import get_debug_queries
+from flask_sqlalchemy import record_queries
 from flask_wtf.csrf import CSRFError
 
 from hyyb.blueprints.admin import admin_bp
@@ -259,7 +259,7 @@ def register_errors(app):
 def register_request_handlers(app):
     @app.after_request
     def query_profiler(response):
-        for q in get_debug_queries():
+        for q in record_queries.get_recorded_queries ():
             if q.duration >= app.config['HYYB_SLOW_QUERY_THRESHOLD']:
                 app.logger.warning(
                     'Slow query: Duration: %fs\n Context: %s\nQuery: %s\n '

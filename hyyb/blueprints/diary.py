@@ -86,7 +86,7 @@ def diary_delete(diary_id):
 def diary_manage():
     page = request.args.get('page', 1, type=int)
     pagination = Diary.query.order_by(Diary.datestamp.desc()).paginate(
-        page, per_page=current_app.config['HYYB_DIARY_MANAGE_PER_PAGE'])
+        page=page, per_page=current_app.config['HYYB_DIARY_MANAGE_PER_PAGE'])
     diaries = pagination.items
     return render_template('diary/diary_manage.html',
                            page=page,
@@ -99,7 +99,7 @@ def diary_manage():
 def diary_view():
     page = request.args.get('page', 1, type=int)
     pagination = Diary.query.order_by(Diary.datestamp.desc()).paginate(
-        page, per_page=current_app.config['HYYB_DIARY_PER_PAGE'])
+        page=page, per_page=current_app.config['HYYB_DIARY_PER_PAGE'])
     diaries = pagination.items
     return render_template('diary/diary_view.html',
                            page=page,

@@ -4,7 +4,7 @@ Created on Wed Apr  9 07:36:25 2025
 
 @author: Administrator
 """
-from flask_bootstrap import Bootstrap
+from flask_bootstrap import Bootstrap4
 from flask_ckeditor import CKEditor
 from flask_login import LoginManager
 # from flask_mail import Mail
@@ -14,7 +14,8 @@ from flask_wtf import CSRFProtect
 from flask_debugtoolbar import DebugToolbarExtension
 #from flask_migrate import Migrate
 
-bootstrap = Bootstrap()
+
+bootstrap = Bootstrap4()
 db = SQLAlchemy()
 login_manager = LoginManager()
 csrf = CSRFProtect()

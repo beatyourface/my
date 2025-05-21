@@ -1,14 +1,15 @@
 
 
 from flask import flash, redirect, url_for, render_template, Blueprint, current_app, \
-    request
+    request, send_from_directory, abort, make_response, session, send_file
 from flask_login import login_required, current_user
 
-from hyyb.forms import SpareForm, SeekForm, OptForm
+from hyyb.forms import SpareForm, SeekForm, OptForm, UploadForm
 from hyyb.models import Departmentp, Spare, Opt, Seek
 from hyyb.extensions import db
 from sqlalchemy import func, literal_column
-
+from hyyb.utils import export_db_to_excel, rename_filename, import_excel_to_database
+import os
 spare_bp = Blueprint('spare', __name__)
 
 
@@ -106,13 +107,26 @@ def spare_delete(spare_id):
 def spare_manage():
     page = request.args.get('page', 1, type=int)
     seek_form = SeekForm()
-    desgination1 = ''
+    seek = Seek.query.get_or_404(1)
     if seek_form.validate_on_submit():
-        desgination1 = seek_form.designation1.data
-    #     flash('搜索成功！','success')
+        if seek_form.clear.data:
+            seek.designation1 = ''
+            page = 1
+            db.session.commit()
+        elif seek_form.designation1.data:
+            seek.designation1 = seek_form.designation1.data
+            page = 1
+            db.session.commit()
+    #        flash('搜索成功！','success')
+
+    #    pagination = Spare.query.order_by(Spare.designation.asc()).paginate(
+    #   page, per_page=current_app.config['HYYB_SPARE_PER_PAGE'])
+
+    desgination1 = seek.designation1
+    seek_form.designation1.data = seek.designation1
     pagination = Spare.query.order_by(Spare.departmentp_id.asc()).\
         filter(Spare.designation.like('%' + desgination1 + '%')).paginate(
-        page, per_page=current_app.config['HYYB_SPARE_PER_PAGE'])
+        page=page, per_page=current_app.config['HYYB_SPARE_PER_PAGE'])
     spares = pagination.items
 
     if not spares:
@@ -134,9 +148,14 @@ def spare_view():
     seek_form = SeekForm()
     seek = Seek.query.get_or_404(1)
     if seek_form.validate_on_submit():
-        seek.designation1 = seek_form.designation1.data
-        page = 1
-        db.session.commit()
+        if seek_form.clear.data:
+            seek.designation1 = ''
+            page = 1
+            db.session.commit()
+        elif seek_form.designation1.data:
+            seek.designation1 = seek_form.designation1.data
+            page = 1
+            db.session.commit()
 #        flash('搜索成功！','success')
 
 #    pagination = Spare.query.order_by(Spare.designation.asc()).paginate(
@@ -148,7 +167,7 @@ def spare_view():
     seek_form.designation1.data = seek.designation1
     pagination = Spare.query.order_by(Spare.departmentp_id.asc()).\
         filter(Spare.designation.like('%' + desgination1 + '%')).paginate(
-        page, per_page=current_app.config['HYYB_SPARE_PER_PAGE'])
+        page=page, per_page=current_app.config['HYYB_SPARE_PER_PAGE'])
     spares = pagination.items
 
     if not spares:
@@ -204,10 +223,97 @@ def spare_show(spare_id):
 @spare_bp.route('/spare/opt/show', methods=['GET', 'POST'])
 def spare_opt_show():
     page = request.args.get('page', 1, type=int)
-    pagination = Opt.query.order_by(Opt.timestamp.desc()).paginate(
-        page, per_page=current_app.config['HYYB_OPT_PER_PAGE'])
+
+    seek_form = SeekForm()
+    seek = Seek.query.get_or_404(1)
+    if seek_form.validate_on_submit():
+        if seek_form.clear.data:
+            seek.designation3 = ''
+            seek.selector0 = 1
+            page = 1
+            db.session.commit()
+        elif seek_form.designation3.data:
+            seek.designation3 = seek_form.designation3.data
+            seek.selector0 = seek_form.selector0.data
+            page = 1
+            db.session.commit()
+
+    desgination3 = seek.designation3
+    seek_form.designation3.data = seek.designation3
+    seek_form.selector0.data = seek.selector0
+
+    if seek.selector0 == 1:
+        pagination = Opt.query.order_by(Opt.timestamp.desc()).\
+        join(Opt.spare).filter(Spare.designation.like('%' + desgination3 + '%')).paginate(
+        page=page, per_page=current_app.config['HYYB_OPT_PER_PAGE'])
+    elif seek.selector0 == 2:
+        pagination = Opt.query.order_by(Opt.timestamp.desc()).\
+        filter(Opt.author.like('%' + desgination3 + '%')).paginate(
+        page=page, per_page=current_app.config['HYYB_OPT_PER_PAGE'])
+    elif seek.selector0 == 3:
+        pagination = Opt.query.order_by(Opt.timestamp.desc()).\
+        join(Opt.spare).join(Spare.departmentp).filter(Departmentp.designation.like('%' + desgination3 + '%')).paginate(
+        page=page, per_page=current_app.config['HYYB_OPT_PER_PAGE'])
+
+#    pagination = Opt.query.order_by(Opt.timestamp.desc()).\
+#        join(Opt.spare).filter(Spare.designation.like('%' + desgination3 + '%')).paginate(
+#        page, per_page=current_app.config['HYYB_OPT_PER_PAGE'])
+
+
     opts = pagination.items
+
+    if not opts:
+        flash('没有找到符合条件的记录！', 'warning')
+        seek.designation3 = ''
+        seek.selector0 = 1
+        db.session.commit()
+        return redirect(url_for('spare.spare_opt_show'))
+
+
+
+#    pagination = Opt.query.order_by(Opt.timestamp.desc()).paginate(
+#        page, per_page=current_app.config['HYYB_OPT_PER_PAGE'])
+#    opts = pagination.items
     return render_template('spare/spare_opt_show.html',
                            page=page,
                            pagination=pagination,
-                           opts=opts)
+                           opts=opts,
+                           seek_form=seek_form)
+
+
+@spare_bp.route('/spare/download', methods=['GET', 'POST'])
+@login_required
+def spare_download():
+    directory = current_app.config['HYYB_DOWNLOAD_PATH']
+    file_name = 'spare.xlsx'
+    excel_file = os.path.join(directory, file_name)
+
+    table_names = ['spare', 'departmentp']
+    export_db_to_excel(*table_names, excel_file=excel_file)
+ #   flash('download success.', 'success')
+    return send_from_directory(directory, file_name, as_attachment=True)
+
+@spare_bp.route('/spare/upload', methods=['GET', 'POST'])
+@login_required
+def spare_upload():
+    form = UploadForm()
+    directory = current_app.config['HYYB_UPLOAD_PATH']
+    if form.validate_on_submit():
+        f = form.doc.data
+        file_name = rename_filename(f.filename, 'spare_upload')
+        if os.path.splitext(file_name)[1] != '.xlsx':
+            flash('Only excel files are allowed!','warning')
+            return redirect(url_for('spare.spare_upload'))
+        f.save(os.path.join(directory, file_name))
+        flash('Upload success.', 'success')
+        try:
+            import_excel_to_database(os.path.join(directory, file_name),'spare')
+        except Exception as e:
+           #flash('Import failed: {}'.format(str(e)),'error')
+            flash('Database update failed.','warning')
+            return redirect(url_for('spare.spare_upload'))
+
+        flash('Database update success.', 'success')
+        return redirect(url_for('spare.spare_view'))
+
+    return render_template('spare/spare_upload.html', form=form)

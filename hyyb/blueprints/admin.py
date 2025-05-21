@@ -82,7 +82,7 @@ def delete_link(link_id):
 def manage_jobcategory():
     page = request.args.get('page', 1, type=int)
     pagination = Jobcategory.query.order_by(Jobcategory.id).paginate(
-        page, per_page=current_app.config['HYYB_JOBCATEGORY_MANAGE_PER_PAGE'])  # 分页
+        page=page, per_page=current_app.config['HYYB_JOBCATEGORY_MANAGE_PER_PAGE'])  # 分页
     jobcategories = pagination.items
     return render_template('admin/manage_jobcategory.html',
                            page=page,
@@ -260,7 +260,7 @@ def show_departmentp(departmentp_id):
 
     per_page = current_app.config['HYYB_DEPARTMENTP_PER_PAGE']
     pagination = Spare.query.with_parent(departmentp).order_by(Spare.shelve.asc()).order_by(Spare.rack.asc()).order_by(Spare.serialnum.asc()).\
-        filter(Spare.designation.like('%' + desgination2 + '%')).paginate(page, per_page)
+        filter(Spare.designation.like('%' + desgination2 + '%')).paginate(page=page, per_page=per_page)
     spares = pagination.items
 
     if not spares:

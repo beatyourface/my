@@ -15,6 +15,7 @@
         <div class="row" style="float:right">
         <form method="post">
             {{ seek_form.csrf_token }} <!-- 渲染 CSRF 令牌隐藏字段 -->
+            {{ seek_form.clear  }}
             检索->名称：{{ seek_form.designation1 }}
             {{ seek_form.submit }}
         </form>
@@ -55,6 +56,7 @@
             {% endfor %}
         </table>
         <div class="page-footer">{{ render_pagination(pagination) }}</div>
+        <p class="text-muted">Tips: 删除备件不会删除其下的操作记录，其下的操作记录会被移动到默认备件.</p>
     {% else %}
         <div class="tip"><h5>没有备件.</h5></div>
     {% endif %}

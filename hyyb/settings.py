@@ -77,8 +77,15 @@ class BaseConfig(object):
     HYYB_SLOW_QUERY_THRESHOLD = 1
 
     HYYB_UPLOAD_PATH = os.path.join(basedir, 'uploads')
+    HYYB_DOWNLOAD_PATH = os.path.join(basedir, 'downloads')
     HYYB_ALLOWED_IMAGE_EXTENSIONS = ['png', 'jpg', 'jpeg', 'gif']
+    HYYB_ALLOWED_EXCEL_EXTENSIONS = ['xlsx']
 
+    # Flask-CKEditor config
+    CKEDITOR_SERVE_LOCAL = True
+    CKEDITOR_FILE_UPLOADER = 'message.upload_for_ckeditor'
+
+    HYYB_MAX_CONTENT_LENGTH = 3 * 1024 * 1024
 
 class DevelopmentConfig(BaseConfig):
  #  SQLALCHEMY_DATABASE_URI = prefix + os.path.join(basedir, 'data-dev.db')

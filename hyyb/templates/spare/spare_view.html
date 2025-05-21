@@ -7,22 +7,40 @@
     <div class="page-header">
         <h1>备件
             <small class="text-muted">{{ pagination.total }}</small>
-
         </h1>
     </div>
-        <div class="row" style="float:left;font-weight:bold;font-size: 20px">
-        <a href="{{ url_for('spare.spare_opt_show')}}">备件存取记录</a>
-    </div>
+        <div class="row" style="float:left;font-weight:bold">
+            <form class="inline" method="post" action="{{ url_for('.spare_upload') }}">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                <button type="submit" class="btn btn-primary btn-sm"
+                        onclick="return confirm('确定上传?');">导入
+                </button>
+        </form>
+            <span style="padding-left: 10px;padding-right: 10px">|</span>
+         <a href="{{ url_for('spare.spare_opt_show')}}">备件存取记录</a>
+        </div>
+
     <div class="row" style="float:right">
-        <form action="{{ url_for('spare.spare_view', page=1)}}" method="post">
+
+        <form class="inline" method="post" action="{{ url_for('.spare_download') }}">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+            <button type="submit" class="btn btn-primary btn-sm"
+                    onclick="return confirm('确定导出?');">导出
+            </button>
+        </form>
+        <span style="padding-left: 10px;padding-right: 10px">|</span>
+        <form action="{{ url_for('spare.spare_view', page=1)}}" method="post" >
+
             {{ seek_form.csrf_token }} <!-- 渲染 CSRF 令牌隐藏字段 -->
-            检索->名称：{{ seek_form.designation1 }}
+            {{ seek_form.clear  }}
+            名称：{{ seek_form.designation1 }}
             {{ seek_form.submit }}
         </form>
+
     </div>
     {% if spares %}
 
-        <table class="table table-striped table-bordered"  >
+        <table class="table table-striped table-bordered table-sm" style="padding:1px"  >
             <thead>
             <tr>
                 <th>No.</th>
@@ -30,7 +48,6 @@
                 <th>名称</th>
                 <th>型号</th>
                 <th>数量</th>
-                <th>单位</th>
 
             </tr>
             </thead>
@@ -41,7 +58,6 @@
                     <td><a href="{{ url_for('spare.spare_show', spare_id=spare.id) }}">{{ spare.designation }}</a></td>
                     <td>{{ spare.model }}</td>
                     <td>{{ spare.quantity }}</td>
-                    <td>{{ spare.unit }}</td>
                 </tr>
             {% endfor %}
         </table>

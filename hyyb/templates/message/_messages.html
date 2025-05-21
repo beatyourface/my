@@ -15,7 +15,7 @@
                     </small>
                 </div>
 				<small style="color: cadetblue">{{ message.othr }}</small>
-                <p class="mb-1">{{ message.body }}</p>
+                <p class="mb-1">{{ message.body|safe }}</p>
                 <small class="text-muted"> {{ loop.index + ((page - 1) * config.HYYB_MESSAGE_PER_PAGE) }}</small>
                 <small style="color: gray;float: right;" >
                     {{ message.author }}

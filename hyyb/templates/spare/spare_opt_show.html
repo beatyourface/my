@@ -10,6 +10,16 @@
 
         </h1>
     </div>
+        <div class="row" style="float:right">
+        <form action="{{ url_for('spare.spare_opt_show', page=1)}}" method="post">
+            {{ seek_form.csrf_token }} <!-- 渲染 CSRF 令牌隐藏字段 -->
+            {{ seek_form.clear }}
+            检索
+            {{ seek_form.selector0 }}
+            {{ seek_form.designation3 }}
+            {{ seek_form.submit }}
+        </form>
+    </div>
     {% if opts %}
         <table class="table table-striped">
             <thead>
