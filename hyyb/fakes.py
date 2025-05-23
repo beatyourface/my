@@ -24,7 +24,7 @@ def fake_admins(count=20):
         privilege=1,
         title="No, I'm the real thing.",
         othr='默认管理员',
-        stuff = Stuff.query.get(1)
+        stuff=Stuff.query.get(1)
 
     )
     admin.set_password('123456')
@@ -36,7 +36,7 @@ def fake_admins(count=20):
             privilege=random.choice([0, 1]),
             title=fake.job(),
             othr=fake.sentence(),
-            stuff = Stuff.query.get(i+2)
+            stuff=Stuff.query.get(i+2)
         )
         admin.set_password('123456')
         db.session.add(admin)
@@ -233,18 +233,20 @@ def fake_spares(count=20):
 
 def fake_opts(count=40):
     for i in range(count):
-        opt = Opt(  timestamp=fake.date_time_this_year(),
-                    author=fake.name(),
-                    quantity=random.randint(1, 100),
-                    obtain=random.choice([1, 2, 3]),
-                    othr=fake.sentence(),
-                    spare=Spare.query.get(random.randint(1, Spare.query.count()))
+        opt = Opt(
+            timestamp=fake.date_time_this_year(),
+            author=fake.name(),
+            quantity=random.randint(1, 100),
+            obtain=random.choice([1, 2, 3]),
+            othr=fake.sentence(),
+            spare=Spare.query.get(random.randint(1, Spare.query.count()))
                     )
-    db.session.add(opt)
-    try:
-        db.session.commit()
-    except IntegrityError:
-        db.session.rollback()
+        db.session.add(opt)
+        try:
+            db.session.commit()
+        except IntegrityError:
+            db.session.rollback()
+
 
 def fake_seek():
     seek = Seek(

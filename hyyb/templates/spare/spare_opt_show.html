@@ -5,12 +5,21 @@
 
 {% block content %}
     <div class="page-header">
-        <h1>记录
+        <h3>记录
             <small class="text-muted">{{ pagination.total }}</small>
 
-        </h1>
+        </h3>
     </div>
         <div class="row" style="float:right">
+            <form class="inline" method="post" action="{{ url_for('.opt_download') }}">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+            <button type="submit"
+                    onclick="return confirm('确定导出?');">导出
+            </button>
+        </form>
+
+    <span style="padding-left: 10px;padding-right: 10px">|</span>
+
         <form action="{{ url_for('spare.spare_opt_show', page=1)}}" method="post">
             {{ seek_form.csrf_token }} <!-- 渲染 CSRF 令牌隐藏字段 -->
             {{ seek_form.clear }}
@@ -24,12 +33,13 @@
         <table class="table table-striped">
             <thead>
             <tr>
-                <th>操作时间</th>
-                <th>人员</th>
-                <th>存取</th>
-                <th>数量</th>
+                <th style="width:100px">操作时间</th>
+                <th style="width:70px">人员</th>
+                <th style="width:60px">存取</th>
+                <th style="width:55px">数量</th>
                 <th>备件</th>
-                <th>仓库</th>
+                <th>其他</th>
+                <th style="width:80px">仓库</th>
             </tr>
             </thead>
             {% for opt in opts %}
@@ -47,7 +57,8 @@
                     </td>
                     <td>{{ opt.quantity }}</td>
                     <td><a href="{{ url_for('spare.spare_show', spare_id=opt.spare_id) }}">{{ opt.spare.designation }}</a></td>
-                    <td>{{ opt.spare.departmentp.designation }}</td>
+                    <td>{{ opt.othr }}</td>
+                    <td><a href="{{ url_for('admin.show_departmentp', departmentp_id=opt.spare.departmentp_id) }}">{{ opt.spare.departmentp.designation }}</a></td>
                 </tr>
             {% endfor %}
         </table>

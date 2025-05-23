@@ -83,7 +83,7 @@ class BaseConfig(object):
 
     # Flask-CKEditor config
     CKEDITOR_SERVE_LOCAL = True
-    CKEDITOR_FILE_UPLOADER = 'message.upload_for_ckeditor'
+ #   CKEDITOR_FILE_UPLOADER = 'message.upload_for_ckeditor'
 
     HYYB_MAX_CONTENT_LENGTH = 3 * 1024 * 1024
 

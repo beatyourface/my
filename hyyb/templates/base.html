@@ -38,26 +38,7 @@
 
                 <ul class="nav navbar-nav navbar-right">
                     {% if current_user.is_authenticated %}
-                        <li class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
-                               aria-haspopup="true"
-                               aria-expanded="false">
-                                新建 <span class="caret"></span>
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <!--<a class="dropdown-item" href="{{ url_for('admin.new_jobcategory') }}">工作分类</a>-->
-                                <a class="dropdown-item" href="{{ url_for('admin.new_departmentp') }}">仓库</a>
-                                <a class="dropdown-item" href="{{ url_for('admin.new_department') }}">车间</a>
-                                <a class="dropdown-item" href="{{ url_for('admin.new_link') }}">Link</a>
 
-                                <a class="dropdown-item" href="{{ url_for('message.message_new') }}">消息</a>
-                                <a class="dropdown-item" href="{{ url_for('spare.spare_new') }}">备件</a>
-                                <a class="dropdown-item" href="{{ url_for('hazard.hazard_new') }}">隐患</a>
-
-                               <!-- <a class="dropdown-item" href="{{ url_for('diary.diary_new') }}">日志</a>-->
-                               <!-- <a class="dropdown-item" href="{{ url_for('attendance.attendance_new') }}">出勤</a>-->
-                            </div>
-                        </li>
                         <li class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
                                aria-haspopup="true"
@@ -99,13 +80,13 @@
         <footer>
 
             <p class="float-right">
-                <small>
+
                     {% if current_user.is_authenticated %}
-                        <a href="{{ url_for('auth.logout', next=request.full_path) }}">Logout</a>
+                        <a href="{{ url_for('auth.logout', next=request.full_path) }}">登出</a>
                     {% else %}
-                        <a href="{{ url_for('auth.login', next=request.full_path) }}">Login</a>
+                        <a href="{{ url_for('auth.login', next=request.full_path) }}">登录</a>
                     {% endif %}
-                </small>
+
             </p>
         </footer>
     {% endblock footer %}

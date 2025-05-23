@@ -5,28 +5,30 @@
 
 {% block content %}
     <div class="page-header">
-        <h1>车间
+        <h3>车间
             <small class="text-muted">{{ departments|length }}</small>
             <span class="float-right"><a class="btn btn-primary btn-sm"
                                          href="{{ url_for('.new_department') }}">New</a></span>
-        </h1>
+        </h3>
     </div>
     {% if departments %}
         <table class="table table-striped">
             <thead>
             <tr>
-                <th>No.</th>
+                <th style="width:60px">No.</th>
+
                 <th>名称</th>
                 <th>其他</th>
-                <th>操作</th>
+                <th style="width:130px">操作</th>
             </tr>
             </thead>
             {% for department in departments %}
                 <tr>
                     <td>{{ loop.index }}</td>
-                    <td><a>{{ department.designation }}</a>
+
+                    <td><a href="{{ url_for('admin.show_department', department_id=department.id) }}">{{ department.designation }}</a>
                     </td>
-                    <TD>{{ department.othr }}</TD>
+                    <td>{{ department.othr }}</td>
                     <td>
                         {% if department.id != 1 %}
                             <a class="btn btn-info btn-sm"

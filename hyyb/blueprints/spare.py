@@ -152,7 +152,7 @@ def spare_view():
             seek.designation1 = ''
             page = 1
             db.session.commit()
-        elif seek_form.designation1.data:
+        elif seek_form.submit.data:
             seek.designation1 = seek_form.designation1.data
             page = 1
             db.session.commit()
@@ -232,7 +232,7 @@ def spare_opt_show():
             seek.selector0 = 1
             page = 1
             db.session.commit()
-        elif seek_form.designation3.data:
+        elif seek_form.submit.data:
             seek.designation3 = seek_form.designation3.data
             seek.selector0 = seek_form.selector0.data
             page = 1
@@ -309,7 +309,7 @@ def spare_upload():
         try:
             import_excel_to_database(os.path.join(directory, file_name),'spare')
         except Exception as e:
-           #flash('Import failed: {}'.format(str(e)),'error')
+            flash('Import failed: {}'.format(str(e)),'error')
             flash('Database update failed.','warning')
             return redirect(url_for('spare.spare_upload'))
 
@@ -317,3 +317,15 @@ def spare_upload():
         return redirect(url_for('spare.spare_view'))
 
     return render_template('spare/spare_upload.html', form=form)
+
+
+@spare_bp.route('/spare/opt_download', methods=['GET', 'POST'])
+@login_required
+def opt_download():
+    directory = current_app.config['HYYB_DOWNLOAD_PATH']
+    file_name ='spare_opt.xlsx'
+    excel_file = os.path.join(directory, file_name)
+
+    table_names = ['opt']
+    export_db_to_excel(*table_names, excel_file=excel_file)
+    return send_from_directory(directory, file_name, as_attachment=True)

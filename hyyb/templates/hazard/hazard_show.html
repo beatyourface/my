@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% from 'bootstrap/form.html' import render_form %}
+
+{% block title %}详情-隐患{% endblock %}
+
+{% block content %}
+    <div class="page-header">
+        <h3>{{ hazard.department.designation}}-{{ hazard.content }}</h3>
+    </div>
+
+    <table class="table table-condensed table-hover">
+      <tr>
+          <th>日期</th>
+        <td>{{ moment(hazard.timestamp).format('YY-MM-DD') }}</td>
+      </tr>
+        <tr>
+        <th>No</th>
+        <td>{{ hazard.id }}</td>
+      </tr>
+      <tr>
+        <th>车间</th>
+        <td>{{ hazard.department.designation}}</td>
+      </tr>
+        <tr>
+        <th>内容</th>
+        <td>{{ hazard.content }}</td>
+      </tr>
+        <tr>
+        <th>材料</th>
+        <td>{{ hazard.material }}</td>
+      </tr>
+          <tr>
+        <th>材料准备</th>
+              <td style="color:blueviolet">{{ hazard.material_ok }} </td>
+      </tr>
+          <tr>
+        <th>材料负责人</th>
+        <td>{{ hazard.director }}</td>
+      </tr>
+          <tr>
+        <th>协作人员</th>
+        <td>{{ hazard.cooperators }}</td>
+          </tr>
+              <tr>
+        <th>方案</th>
+        <td>{{ hazard.scheme }}</td>
+    </tr>
+        <tr>
+        <th>负责人</th>
+        <td>{{ hazard.leader }}</td>
+      </tr>
+          <tr>
+        <th>其他</th>
+        <td>{{ hazard.othr }}</td>
+      </tr>
+          <tr>
+        <th>是否停车</th>
+        <td style="color:blueviolet">{{ hazard.onstop }}</td>
+      </tr>
+
+    </table>
+    <hr/>
+    <hr/>
+
+{% endblock %}

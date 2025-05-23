@@ -26,7 +26,7 @@ class SettingForm(FlaskForm):
     title = StringField('标题', validators=[DataRequired(), Length(1, 60)])
     othr = StringField('其他', validators=[DataRequired(), Length(1, 60)])
 
-    submit = SubmitField()
+    submit = SubmitField("提交")
 
 
 class StuffForm(FlaskForm):
@@ -44,7 +44,7 @@ class StuffForm(FlaskForm):
     manage = BooleanField('管理人员', default=False)
     othr = StringField('其他', validators=[DataRequired(), Length(1, 60)])
     
-    submit = SubmitField()
+    submit = SubmitField("提交")
 
 
 class AttendanceForm(FlaskForm):
@@ -55,7 +55,7 @@ class AttendanceForm(FlaskForm):
     trip = BooleanField('公差')
     othr = StringField('其他', validators=[DataRequired(), Length(1, 60)])
     
-    submit = SubmitField()
+    submit = SubmitField("提交")
 
     def __init__(self, *args, **kwargs):
         super(AttendanceForm, self).__init__(*args, **kwargs)
@@ -75,7 +75,7 @@ class HazardForm(FlaskForm):
     othr = StringField('其他', validators=[DataRequired(), Length(1, 60)])
     onstop = BooleanField('需停车')
     
-    submit = SubmitField()
+    submit = SubmitField("提交")
     
     def __init__(self, *args, **kwargs):
         super(HazardForm, self).__init__(*args, **kwargs)
@@ -87,7 +87,7 @@ class DepartmentForm(FlaskForm):
     designation = StringField('名称', validators=[DataRequired(), Length(1, 20)])
     othr = StringField('其他', validators=[DataRequired(), Length(1, 60)])
    
-    submit = SubmitField()
+    submit = SubmitField("提交")
 
 
 class SpareForm(FlaskForm):
@@ -104,7 +104,7 @@ class SpareForm(FlaskForm):
     price = FloatField('单价')
     othr = StringField('其他', validators=[DataRequired(), Length(1, 60)])
     
-    submit = SubmitField()
+    submit = SubmitField("提交")
     
     def __init__(self, *args, **kwargs):
         super(SpareForm, self).__init__(*args, **kwargs)
@@ -116,7 +116,7 @@ class DepartmentpForm(FlaskForm):
     designation = StringField('名称', validators=[DataRequired(), Length(1, 20)])
     othr = StringField('其他', validators=[DataRequired(), Length(1, 60)])
    
-    submit = SubmitField()
+    submit = SubmitField("提交")
 
 
 class DiaryForm(FlaskForm):
@@ -130,7 +130,7 @@ class DiaryForm(FlaskForm):
     factor = FloatField('系数', validators=[DataRequired(), NumberRange(0.1, 10.0)])
     othr = StringField('其他', validators=[DataRequired(), Length(1, 60)])
     
-    submit = SubmitField()
+    submit = SubmitField("提交")
     
     def __init__(self, *args, **kwargs):
         super(DiaryForm, self).__init__(*args, **kwargs)
@@ -143,7 +143,7 @@ class JobcategoryForm(FlaskForm):
     score = FloatField('分数', validators=[DataRequired(), NumberRange(0.5, 30.0)])
     othr = StringField('其他', validators=[DataRequired(), Length(1, 60)])
    
-    submit = SubmitField()
+    submit = SubmitField("提交")
 
 
 class MessageForm(FlaskForm):
@@ -151,24 +151,24 @@ class MessageForm(FlaskForm):
     body = TextAreaField('消息内容', validators=[DataRequired()])
     othr = StringField('其他', validators=[DataRequired(), Length(1, 60)])
     
-    submit = SubmitField()
+    submit = SubmitField("提交")
 
 
 class LinkForm(FlaskForm):
     designation = StringField('名称', validators=[DataRequired(), Length(1, 30)])
     url = StringField('URL', validators=[DataRequired(), URL(), Length(1, 255)])
     
-    submit = SubmitField()
+    submit = SubmitField("提交")
 
 
 class SeekForm(FlaskForm):
-    clear = SubmitField()
+    clear = SubmitField("清除")
     selector0 = SelectField('搜索', choices=[(1, '备件'), (2, '人员'), (3, '仓库')], default='1', coerce=int)
     designation1 = StringField('名称1', default='')
     designation2 = StringField('名称2', default='')
     designation3 = StringField('名称3', default='')
     designation4 = StringField('名称4', default='')
-    submit = SubmitField()
+    submit = SubmitField("提交")
 
 
 class OptForm(FlaskForm):
@@ -177,10 +177,10 @@ class OptForm(FlaskForm):
     obtain = SelectField('存取', choices=[(1, '取用'),(2, '报废'),  (3, '存回')], default='1', coerce=int)
     othr = StringField('其他', validators=[DataRequired(), Length(1, 60)])
 
-    submit = SubmitField()
+    submit = SubmitField("提交")
 
 # upload form
 class UploadForm(FlaskForm):
     doc = FileField('Upload excel', validators=[FileRequired(['xlsx'])])
 
-    submit = SubmitField()
+    submit = SubmitField("提交")

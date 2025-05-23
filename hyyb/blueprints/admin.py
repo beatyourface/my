@@ -5,8 +5,9 @@ from flask_login import login_required, current_user
 from flask_ckeditor import upload_success, upload_fail
 
 from hyyb.extensions import db
-from hyyb.models import Link, Jobcategory, Department, Departmentp, Spare, Seek
-from hyyb.forms import SettingForm, LinkForm, JobcategoryForm, DepartmentpForm, DepartmentForm,\
+from hyyb.models import Link, Jobcategory, Department, Departmentp, Spare, Seek, \
+        Hazard
+from hyyb.forms import SettingForm, LinkForm, JobcategoryForm, DepartmentpForm, DepartmentForm, \
     SeekForm
 
 from hyyb.utils import redirect_back, allowed_file
@@ -250,16 +251,22 @@ def show_departmentp(departmentp_id):
     seek_form = SeekForm()
     seek = Seek.query.get_or_404(1)
     if seek_form.validate_on_submit():
-        seek.designation2 = seek_form.designation2.data
-        page = 1
-        db.session.commit()
+        if seek_form.clear.data:
+            seek.designation2 = ''
+            page = 1
+            db.session.commit()
+        elif seek_form.submit.data:
+            seek.designation2 = seek_form.designation2.data
+            page = 1
+            db.session.commit()
     #        flash('搜索成功！','success')
 
     desgination2 = seek.designation2
     seek_form.designation2.data = seek.designation2
 
     per_page = current_app.config['HYYB_DEPARTMENTP_PER_PAGE']
-    pagination = Spare.query.with_parent(departmentp).order_by(Spare.shelve.asc()).order_by(Spare.rack.asc()).order_by(Spare.serialnum.asc()).\
+    pagination = Spare.query.with_parent(departmentp).order_by(Spare.shelve.asc()).\
+        order_by(Spare.rack.asc()).order_by(Spare.serialnum.asc()).\
         filter(Spare.designation.like('%' + desgination2 + '%')).paginate(page=page, per_page=per_page)
     spares = pagination.items
 
@@ -273,6 +280,19 @@ def show_departmentp(departmentp_id):
                            departmentp=departmentp, page=page,
                            pagination=pagination, spares=spares,
                            seek_form=seek_form)
+
+
+@admin_bp.route('/department/<int:department_id>', methods=['GET', 'POST'])
+def show_department(department_id):
+    department = Department.query.get_or_404(department_id)
+    page = request.args.get('page', 1, type=int)
+    per_page = current_app.config['HYYB_DEPARTMENT_PER_PAGE']
+    pagination = Hazard.query.with_parent(department).order_by(Hazard.timestamp.desc()).paginate(
+        page=page, per_page=per_page)
+    hazards = pagination.items
+    return render_template('admin/show_department.html',
+                           department=department, page=page,
+                           pagination=pagination, hazards=hazards)
 
 
 @admin_bp.route('/uploads/<path:filename>')

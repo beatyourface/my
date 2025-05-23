@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% from 'bootstrap/pagination.html' import render_pagination %}
+
+{% block title %}{{ department.desgination }}{% endblock %}
+
+{% block content %}
+    <div class="page-header">
+        <h3>车间-{{ department.designation }}</h3>
+        <p class="text-muted">{{ department.hazards|length }} 隐患</p>
+    </div>
+
+    {% if hazards %}
+        <table class="table table-striped table-bordered"  >
+            <thead>
+            <tr>
+                <th style="width:85px">日期</th>
+                <th>内容</th>
+                <th style="width:100px">协作人员</th>
+                <th>方案</th>
+                <th>其他</th>
+                <th style="width:60px">停车</th>
+
+            </tr>
+            </thead>
+            {% for hazard in hazards %}
+                <tr >
+                    <td>{{ moment(hazard.timestamp).format('YY-MM-DD') }}</td>
+                    <td><a href="{{ url_for('hazard.hazard_show', hazard_id=hazard.id) }}">{{ hazard.content }}</a></td>
+                    <td>{{ hazard.cooperators }}</td>
+                    <td>{{ hazard.scheme }}</td>
+                    <td>{{ hazard.othr }}</td>
+                    <td>{{ hazard.onstop }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <div class="tip"><h5>没有隐患.</h5></div>
+    {% endif %}
+            <div class="page-footer">{{ render_pagination(pagination) }}</div>
+{% endblock %}

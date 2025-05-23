@@ -5,12 +5,12 @@
 
 {% block content %}
     <div class="page-header">
-        <h1>备件
+        <h3>备件
             <small class="text-muted">{{ pagination.total }}</small>
             <span class="float-right">
                 <a class="btn btn-primary btn-sm" href="{{ url_for('.spare_new') }}">New</a>
             </span>
-        </h1>
+        </h3>
     </div>
         <div class="row" style="float:right">
         <form method="post">
@@ -21,17 +21,17 @@
         </form>
     </div>
     {% if spares %}
-        <table class="table table-striped">
+        <table class="table table-striped table-bordered ">
             <thead>
             <tr>
-                <th>No.</th>
-                <th>仓库</th>
+                <th style="width:60px">No.</th>
+                <th style="width:60px">仓库</th>
                 <th>名称</th>
                 <th>型号</th>
-                <th>数量</th>
-                <th>单位</th>
+                <th style="width:60px">数量</th>
 
-                <th>操作</th>
+
+                <th style="width:130px">操作</th>
             </tr>
             </thead>
             {% for spare in spares %}
@@ -41,7 +41,6 @@
                     <td>{{ spare.designation }}</td>
                     <td>{{ spare.model }}</td>
                     <td>{{ spare.quantity }}</td>
-                    <td>{{ spare.unit }}</td>
 
                     <td>
                         <a class="btn btn-info btn-sm" href="{{ url_for('.spare_edit', spare_id=spare.id) }}">Edit</a>

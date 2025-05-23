@@ -208,10 +208,10 @@ def register_template_context(app):
     def make_template_context():
         admin = current_user
         jobcategories = Jobcategory.query.order_by(Jobcategory.designation).all()
-        links = Link.query.order_by(Link.designation).all()
+        links = Link.query.order_by(Link.id).all()
         messages = Message.query.order_by(Message.timestamp).all()
-        departments = Department.query.order_by(Department.designation).all()
-        departmentps = Departmentp.query.order_by(Departmentp.designation).all()
+        departments = Department.query.order_by(Department.id).all()
+        departmentps = Departmentp.query.order_by(Departmentp.id).all()
 
         return dict(admin=admin,
                     jobcategoryies=jobcategories,

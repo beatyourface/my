@@ -15,7 +15,7 @@ from hyyb.extensions import db
 class Admin(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(20))
-    password_hash = db.Column(db.String(128))
+    password_hash = db.Column(db.String(256))
     privilege = db.Column(db.Integer, default=0)
     title = db.Column(db.String(60))
     othr = db.Column(db.String(60))

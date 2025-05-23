@@ -5,15 +5,15 @@
 
 {% block content %}
     <div class="page-header">
-        <h1>隐患
+        <h3>隐患
             <small class="text-muted">{{ pagination.total }}</small>
 
-        </h1>
+        </h3>
     </div>
     <div class="row" style="float:left">
             <form class="inline" method="post" action="{{ url_for('.hazard_upload') }}">
                 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-                <button type="submit" class="btn btn-primary btn-sm"
+                <button type="submit"
                         onclick="return confirm('确定上传?');">导入
                 </button>
         </form>
@@ -21,7 +21,7 @@
         <div class="row" style="float:right">
             <form class="inline" method="post" action="{{ url_for('.hazard_download') }}">
             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-            <button type="submit" class="btn btn-primary btn-sm"
+            <button type="submit"
                     onclick="return confirm('确定导出?');">导出
             </button>
         </form>
@@ -38,17 +38,12 @@
         <table class="table table-striped table-bordered ">
             <thead>
             <tr>
-                <th>No.</th>
-                <th>车间</th>
+                <th style="width:50px">No.</th>
+                <th style="width:60px">车间</th>
                 <th>内容</th>
-                <th>材料</th>
-                <th>材料准备</th>
-                <th>材料负责人</th>
                 <th>协作人员</th>
                 <th>方案</th>
-                <th>负责人</th>
-                <th>其他</th>
-                <th>需停车</th>
+                <th style="width:60px">停车</th>
 
 
             </tr>
@@ -56,15 +51,11 @@
             {% for hazard in hazards %}
                 <tr>
                     <td>{{ loop.index + ((page - 1) * config.HYYB_HAZARD_PER_PAGE) }}</td>
-                    <td>{{ hazard.department.designation }}</td>
-                    <td>{{ hazard.content }}</td>
-                    <td>{{ hazard.material }}</td>
-                    <td>{{ hazard.material_ok }}</td>
-                    <td>{{ hazard.director }}</td>
+                    <td><a href="{{ url_for('admin.show_department', department_id=hazard.department_id) }}">{{ hazard.department.designation }}</a></td>
+                    <td><a href="{{ url_for('hazard.hazard_show', hazard_id=hazard.id) }}">{{ hazard.content }}</a></td>
+
                     <td>{{ hazard.cooperators }}</td>
                     <td>{{ hazard.scheme }}</td>
-                    <td>{{ hazard.leader }}</td>
-                    <td>{{ hazard.others }}</td>
                     <td>{{ hazard.onstop }}</td>
 
 

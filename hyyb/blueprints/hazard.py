@@ -124,7 +124,7 @@ def hazard_view():
         if seek_form.clear.data:
             session['seek'] = ''
             page = 1
-        elif seek_form.designation4.data:
+        elif seek_form.submit.data:
             session['seek'] = seek_form.designation4.data
             page = 1
     seek_form.designation4.data = session.get('seek', '')
@@ -142,6 +142,13 @@ def hazard_view():
 
     return render_template('hazard/hazard_view.html', page=page,\
                            pagination=pagination, hazards=hazards, seek_form=seek_form)
+
+
+@hazard_bp.route('/hazard/show/<int:hazard_id>', methods=['GET', 'POST'])
+def hazard_show(hazard_id):
+    hazard = Hazard.query.get_or_404(hazard_id)
+
+    return render_template('hazard/hazard_show.html', hazard=hazard)
 
 
 @hazard_bp.route('/hazard/download', methods=['GET', 'POST'])
@@ -172,7 +179,7 @@ def hazard_upload():
         try:
             import_excel_to_database(os.path.join(directory, file_name),'hazard')
         except Exception as e:
-           #flash('Import failed: {}'.format(str(e)),'error')
+            flash('Import failed: {}'.format(str(e)),'error')
             flash('Database update failed.','warning')
             return redirect(url_for('hazard.hazard_upload'))
 
