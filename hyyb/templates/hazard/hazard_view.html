@@ -38,12 +38,11 @@
         <table class="table table-striped table-bordered ">
             <thead>
             <tr>
-                <th style="width:50px">No.</th>
-                <th style="width:60px">车间</th>
+                <th style="width:45px">No.</th>
+                <th style="width:50px">车间</th>
                 <th>内容</th>
-                <th>协作人员</th>
-                <th>方案</th>
-                <th style="width:60px">停车</th>
+                <th sytle="width:50px">协作人员</th>
+                <th style="width:50px">停车</th>
 
 
             </tr>
@@ -55,7 +54,6 @@
                     <td><a href="{{ url_for('hazard.hazard_show', hazard_id=hazard.id) }}">{{ hazard.content }}</a></td>
 
                     <td>{{ hazard.cooperators }}</td>
-                    <td>{{ hazard.scheme }}</td>
                     <td>{{ hazard.onstop }}</td>
 
 

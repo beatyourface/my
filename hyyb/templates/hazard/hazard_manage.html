@@ -25,18 +25,11 @@
         <table class="table table-striped table-bordered">
             <thead>
             <tr>
-                <th style="width:50px">No.</th>
-                <th style="width:60px">车间</th>
+                <th style="width:45px">No.</th>
+                <th style="width:50px">车间</th>
                 <th>内容</th>
-                <th>材料</th>
-                <th>材料准备</th>
-                <th>材料负责人</th>
-                <th>协作人员</th>
-                <th>方案</th>
-                <th>负责人</th>
-                <th>其他</th>
-                <th style="width:60px">停车</th>
-                <th style="width:130px">操作</th>
+                <th style="width:50px">停车</th>
+                <th style="width:125px">操作</th>
 
             </tr>
             </thead>
@@ -45,13 +38,6 @@
                     <td>{{ loop.index + ((page - 1) * config.HYYB_HAZARD_MANAGE_PER_PAGE) }}</td>
                     <td>{{ hazard.department.designation }}</td>
                     <td>{{ hazard.content }}</td>
-                    <td>{{ hazard.material }}</td>
-                    <td>{{ hazard.material_ok }}</td>
-                    <td>{{ hazard.director }}</td>
-                    <td>{{ hazard.cooperators }}</td>
-                    <td>{{ hazard.scheme }}</td>
-                    <td>{{ hazard.leader }}</td>
-                    <td>{{ hazard.othr }}</td>
                     <td>{{ hazard.onstop }}</td>
 
                     <td>

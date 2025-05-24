@@ -126,7 +126,7 @@ def spare_manage():
     seek_form.designation1.data = seek.designation1
     pagination = Spare.query.order_by(Spare.departmentp_id.asc()).\
         filter(Spare.designation.like('%' + desgination1 + '%')).paginate(
-        page=page, per_page=current_app.config['HYYB_SPARE_PER_PAGE'])
+        page=page, per_page=current_app.config['HYYB_SPARE_MANAGE_PER_PAGE'])
     spares = pagination.items
 
     if not spares:

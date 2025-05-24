@@ -98,8 +98,8 @@ class TestingConfig(BaseConfig):
 
 
 class ProductionConfig(BaseConfig):
-    SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL', prefix + os.path.join(basedir, 'data.db'))
-
+    #SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL', prefix + os.path.join(basedir, 'data.db'))
+    SQLALCHEMY_DATABASE_URI = f'mysql+pymysql://{user}:{pwd}@{host}:3306/{dbn}?charset=utf8mb4'
 
 config = {
     'development': DevelopmentConfig,

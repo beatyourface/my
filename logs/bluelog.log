@@ -1643,3 +1643,985 @@ FROM admin
  LIMIT ? OFFSET ?]
 [parameters: (1, 0)]
 (Background on this error at: http://sqlalche.me/e/e3q8)
+2025-05-23 22:07:11,261 - hyyb - ERROR - Exception on / [GET]
+Traceback (most recent call last):
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1963, in _exec_single_context
+    self.dialect.do_execute(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/default.py", line 943, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.OperationalError: no such table: seek
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/var/www/hyyb/hyyb/blueprints/message.py", line 20, in index
+    seek = Seek.query.get_or_404(1)
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask_sqlalchemy/query.py", line 30, in get_or_404
+    rv = self.get(ident)
+  File "<string>", line 2, in get
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/util/deprecations.py", line 386, in warned
+    return fn(*args, **kwargs)  # type: ignore[no-any-return]
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/query.py", line 1126, in get
+    return self._get_impl(ident, loading.load_on_pk_identity)
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/query.py", line 1135, in _get_impl
+    return self.session._get_impl(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 3873, in _get_impl
+    return db_load_fn(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/loading.py", line 694, in load_on_pk_identity
+    session.execute(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 2365, in execute
+    return self._execute_internal(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 2251, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1415, in execute
+    return meth(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/sql/elements.py", line 523, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1637, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1842, in _execute_context
+    return self._exec_single_context(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1982, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 2351, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1963, in _exec_single_context
+    self.dialect.do_execute(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/default.py", line 943, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such table: seek
+[SQL: SELECT seek.id AS seek_id, seek.selector0 AS seek_selector0, seek.designation1 AS seek_designation1, seek.designation2 AS seek_designation2, seek.designation3 AS seek_designation3, seek.designation4 AS seek_designation4 
+FROM seek 
+WHERE seek.id = ?]
+[parameters: (1,)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-05-23 22:07:11,356 - hyyb - ERROR - Exception on /favicon.ico [GET]
+Traceback (most recent call last):
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask/app.py", line 891, in dispatch_request
+    self.raise_routing_exception(req)
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask/app.py", line 500, in raise_routing_exception
+    raise request.routing_exception  # type: ignore[misc]
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask/ctx.py", line 362, in match_request
+    result = self.url_adapter.match(return_rule=True)  # type: ignore
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/werkzeug/routing/map.py", line 629, in match
+    raise NotFound() from None
+werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1963, in _exec_single_context
+    self.dialect.do_execute(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/default.py", line 943, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.OperationalError: no such table: admin
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask/app.py", line 802, in handle_user_exception
+    return self.handle_http_exception(e)
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask/app.py", line 777, in handle_http_exception
+    return self.ensure_sync(handler)(e)  # type: ignore[no-any-return]
+  File "/var/www/hyyb/hyyb/__init__.py", line 248, in page_not_found
+    return render_template('errors/404.html'), 404
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask/templating.py", line 150, in render_template
+    return _render(app, template, context)
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask/templating.py", line 127, in _render
+    app.update_template_context(context)
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask/app.py", line 530, in update_template_context
+    context.update(self.ensure_sync(func)())
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask_login/utils.py", line 405, in _user_context_processor
+    return dict(current_user=_get_user())
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask_login/utils.py", line 370, in _get_user
+    current_app.login_manager._load_user()
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask_login/login_manager.py", line 364, in _load_user
+    user = self._user_callback(user_id)
+  File "/var/www/hyyb/hyyb/extensions.py", line 32, in load_user
+    user = Admin.query.get(int(user_id))
+  File "<string>", line 2, in get
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/util/deprecations.py", line 386, in warned
+    return fn(*args, **kwargs)  # type: ignore[no-any-return]
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/query.py", line 1126, in get
+    return self._get_impl(ident, loading.load_on_pk_identity)
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/query.py", line 1135, in _get_impl
+    return self.session._get_impl(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 3873, in _get_impl
+    return db_load_fn(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/loading.py", line 694, in load_on_pk_identity
+    session.execute(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 2365, in execute
+    return self._execute_internal(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 2251, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1415, in execute
+    return meth(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/sql/elements.py", line 523, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1637, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1842, in _execute_context
+    return self._exec_single_context(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1982, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 2351, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1963, in _exec_single_context
+    self.dialect.do_execute(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/default.py", line 943, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such table: admin
+[SQL: SELECT admin.id AS admin_id, admin.username AS admin_username, admin.password_hash AS admin_password_hash, admin.privilege AS admin_privilege, admin.title AS admin_title, admin.othr AS admin_othr 
+FROM admin 
+WHERE admin.id = ?]
+[parameters: (1,)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-05-23 22:07:14,603 - hyyb - ERROR - Exception on / [GET]
+Traceback (most recent call last):
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1963, in _exec_single_context
+    self.dialect.do_execute(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/default.py", line 943, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.OperationalError: no such table: seek
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/var/www/hyyb/hyyb/blueprints/message.py", line 20, in index
+    seek = Seek.query.get_or_404(1)
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask_sqlalchemy/query.py", line 30, in get_or_404
+    rv = self.get(ident)
+  File "<string>", line 2, in get
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/util/deprecations.py", line 386, in warned
+    return fn(*args, **kwargs)  # type: ignore[no-any-return]
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/query.py", line 1126, in get
+    return self._get_impl(ident, loading.load_on_pk_identity)
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/query.py", line 1135, in _get_impl
+    return self.session._get_impl(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 3873, in _get_impl
+    return db_load_fn(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/loading.py", line 694, in load_on_pk_identity
+    session.execute(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 2365, in execute
+    return self._execute_internal(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 2251, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1415, in execute
+    return meth(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/sql/elements.py", line 523, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1637, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1842, in _execute_context
+    return self._exec_single_context(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1982, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 2351, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1963, in _exec_single_context
+    self.dialect.do_execute(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/default.py", line 943, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such table: seek
+[SQL: SELECT seek.id AS seek_id, seek.selector0 AS seek_selector0, seek.designation1 AS seek_designation1, seek.designation2 AS seek_designation2, seek.designation3 AS seek_designation3, seek.designation4 AS seek_designation4 
+FROM seek 
+WHERE seek.id = ?]
+[parameters: (1,)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-05-23 22:07:14,695 - hyyb - ERROR - Exception on /favicon.ico [GET]
+Traceback (most recent call last):
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask/app.py", line 891, in dispatch_request
+    self.raise_routing_exception(req)
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask/app.py", line 500, in raise_routing_exception
+    raise request.routing_exception  # type: ignore[misc]
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask/ctx.py", line 362, in match_request
+    result = self.url_adapter.match(return_rule=True)  # type: ignore
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/werkzeug/routing/map.py", line 629, in match
+    raise NotFound() from None
+werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1963, in _exec_single_context
+    self.dialect.do_execute(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/default.py", line 943, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.OperationalError: no such table: admin
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask/app.py", line 802, in handle_user_exception
+    return self.handle_http_exception(e)
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask/app.py", line 777, in handle_http_exception
+    return self.ensure_sync(handler)(e)  # type: ignore[no-any-return]
+  File "/var/www/hyyb/hyyb/__init__.py", line 248, in page_not_found
+    return render_template('errors/404.html'), 404
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask/templating.py", line 150, in render_template
+    return _render(app, template, context)
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask/templating.py", line 127, in _render
+    app.update_template_context(context)
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask/app.py", line 530, in update_template_context
+    context.update(self.ensure_sync(func)())
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask_login/utils.py", line 405, in _user_context_processor
+    return dict(current_user=_get_user())
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask_login/utils.py", line 370, in _get_user
+    current_app.login_manager._load_user()
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask_login/login_manager.py", line 364, in _load_user
+    user = self._user_callback(user_id)
+  File "/var/www/hyyb/hyyb/extensions.py", line 32, in load_user
+    user = Admin.query.get(int(user_id))
+  File "<string>", line 2, in get
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/util/deprecations.py", line 386, in warned
+    return fn(*args, **kwargs)  # type: ignore[no-any-return]
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/query.py", line 1126, in get
+    return self._get_impl(ident, loading.load_on_pk_identity)
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/query.py", line 1135, in _get_impl
+    return self.session._get_impl(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 3873, in _get_impl
+    return db_load_fn(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/loading.py", line 694, in load_on_pk_identity
+    session.execute(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 2365, in execute
+    return self._execute_internal(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 2251, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1415, in execute
+    return meth(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/sql/elements.py", line 523, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1637, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1842, in _execute_context
+    return self._exec_single_context(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1982, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 2351, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1963, in _exec_single_context
+    self.dialect.do_execute(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/default.py", line 943, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such table: admin
+[SQL: SELECT admin.id AS admin_id, admin.username AS admin_username, admin.password_hash AS admin_password_hash, admin.privilege AS admin_privilege, admin.title AS admin_title, admin.othr AS admin_othr 
+FROM admin 
+WHERE admin.id = ?]
+[parameters: (1,)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-05-23 22:08:30,160 - hyyb - ERROR - Exception on / [GET]
+Traceback (most recent call last):
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1963, in _exec_single_context
+    self.dialect.do_execute(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/default.py", line 943, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.OperationalError: no such table: seek
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/var/www/hyyb/hyyb/blueprints/message.py", line 20, in index
+    seek = Seek.query.get_or_404(1)
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask_sqlalchemy/query.py", line 30, in get_or_404
+    rv = self.get(ident)
+  File "<string>", line 2, in get
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/util/deprecations.py", line 386, in warned
+    return fn(*args, **kwargs)  # type: ignore[no-any-return]
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/query.py", line 1126, in get
+    return self._get_impl(ident, loading.load_on_pk_identity)
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/query.py", line 1135, in _get_impl
+    return self.session._get_impl(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 3873, in _get_impl
+    return db_load_fn(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/loading.py", line 694, in load_on_pk_identity
+    session.execute(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 2365, in execute
+    return self._execute_internal(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 2251, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1415, in execute
+    return meth(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/sql/elements.py", line 523, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1637, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1842, in _execute_context
+    return self._exec_single_context(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1982, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 2351, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1963, in _exec_single_context
+    self.dialect.do_execute(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/default.py", line 943, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such table: seek
+[SQL: SELECT seek.id AS seek_id, seek.selector0 AS seek_selector0, seek.designation1 AS seek_designation1, seek.designation2 AS seek_designation2, seek.designation3 AS seek_designation3, seek.designation4 AS seek_designation4 
+FROM seek 
+WHERE seek.id = ?]
+[parameters: (1,)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-05-23 22:08:30,245 - hyyb - ERROR - Exception on /favicon.ico [GET]
+Traceback (most recent call last):
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask/app.py", line 891, in dispatch_request
+    self.raise_routing_exception(req)
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask/app.py", line 500, in raise_routing_exception
+    raise request.routing_exception  # type: ignore[misc]
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask/ctx.py", line 362, in match_request
+    result = self.url_adapter.match(return_rule=True)  # type: ignore
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/werkzeug/routing/map.py", line 629, in match
+    raise NotFound() from None
+werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1963, in _exec_single_context
+    self.dialect.do_execute(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/default.py", line 943, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.OperationalError: no such table: admin
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask/app.py", line 802, in handle_user_exception
+    return self.handle_http_exception(e)
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask/app.py", line 777, in handle_http_exception
+    return self.ensure_sync(handler)(e)  # type: ignore[no-any-return]
+  File "/var/www/hyyb/hyyb/__init__.py", line 248, in page_not_found
+    return render_template('errors/404.html'), 404
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask/templating.py", line 150, in render_template
+    return _render(app, template, context)
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask/templating.py", line 127, in _render
+    app.update_template_context(context)
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask/app.py", line 530, in update_template_context
+    context.update(self.ensure_sync(func)())
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask_login/utils.py", line 405, in _user_context_processor
+    return dict(current_user=_get_user())
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask_login/utils.py", line 370, in _get_user
+    current_app.login_manager._load_user()
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask_login/login_manager.py", line 364, in _load_user
+    user = self._user_callback(user_id)
+  File "/var/www/hyyb/hyyb/extensions.py", line 32, in load_user
+    user = Admin.query.get(int(user_id))
+  File "<string>", line 2, in get
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/util/deprecations.py", line 386, in warned
+    return fn(*args, **kwargs)  # type: ignore[no-any-return]
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/query.py", line 1126, in get
+    return self._get_impl(ident, loading.load_on_pk_identity)
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/query.py", line 1135, in _get_impl
+    return self.session._get_impl(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 3873, in _get_impl
+    return db_load_fn(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/loading.py", line 694, in load_on_pk_identity
+    session.execute(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 2365, in execute
+    return self._execute_internal(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 2251, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1415, in execute
+    return meth(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/sql/elements.py", line 523, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1637, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1842, in _execute_context
+    return self._exec_single_context(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1982, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 2351, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1963, in _exec_single_context
+    self.dialect.do_execute(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/default.py", line 943, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such table: admin
+[SQL: SELECT admin.id AS admin_id, admin.username AS admin_username, admin.password_hash AS admin_password_hash, admin.privilege AS admin_privilege, admin.title AS admin_title, admin.othr AS admin_othr 
+FROM admin 
+WHERE admin.id = ?]
+[parameters: (1,)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-05-23 22:10:35,365 - hyyb - ERROR - Exception on / [GET]
+Traceback (most recent call last):
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1963, in _exec_single_context
+    self.dialect.do_execute(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/default.py", line 943, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.OperationalError: no such table: seek
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/var/www/hyyb/hyyb/blueprints/message.py", line 20, in index
+    seek = Seek.query.get_or_404(1)
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask_sqlalchemy/query.py", line 30, in get_or_404
+    rv = self.get(ident)
+  File "<string>", line 2, in get
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/util/deprecations.py", line 386, in warned
+    return fn(*args, **kwargs)  # type: ignore[no-any-return]
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/query.py", line 1126, in get
+    return self._get_impl(ident, loading.load_on_pk_identity)
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/query.py", line 1135, in _get_impl
+    return self.session._get_impl(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 3873, in _get_impl
+    return db_load_fn(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/loading.py", line 694, in load_on_pk_identity
+    session.execute(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 2365, in execute
+    return self._execute_internal(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 2251, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1415, in execute
+    return meth(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/sql/elements.py", line 523, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1637, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1842, in _execute_context
+    return self._exec_single_context(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1982, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 2351, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1963, in _exec_single_context
+    self.dialect.do_execute(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/default.py", line 943, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such table: seek
+[SQL: SELECT seek.id AS seek_id, seek.selector0 AS seek_selector0, seek.designation1 AS seek_designation1, seek.designation2 AS seek_designation2, seek.designation3 AS seek_designation3, seek.designation4 AS seek_designation4 
+FROM seek 
+WHERE seek.id = ?]
+[parameters: (1,)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-05-23 22:10:35,487 - hyyb - ERROR - Exception on /favicon.ico [GET]
+Traceback (most recent call last):
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask/app.py", line 891, in dispatch_request
+    self.raise_routing_exception(req)
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask/app.py", line 500, in raise_routing_exception
+    raise request.routing_exception  # type: ignore[misc]
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask/ctx.py", line 362, in match_request
+    result = self.url_adapter.match(return_rule=True)  # type: ignore
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/werkzeug/routing/map.py", line 629, in match
+    raise NotFound() from None
+werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1963, in _exec_single_context
+    self.dialect.do_execute(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/default.py", line 943, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.OperationalError: no such table: admin
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask/app.py", line 802, in handle_user_exception
+    return self.handle_http_exception(e)
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask/app.py", line 777, in handle_http_exception
+    return self.ensure_sync(handler)(e)  # type: ignore[no-any-return]
+  File "/var/www/hyyb/hyyb/__init__.py", line 248, in page_not_found
+    return render_template('errors/404.html'), 404
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask/templating.py", line 150, in render_template
+    return _render(app, template, context)
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask/templating.py", line 127, in _render
+    app.update_template_context(context)
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask/app.py", line 530, in update_template_context
+    context.update(self.ensure_sync(func)())
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask_login/utils.py", line 405, in _user_context_processor
+    return dict(current_user=_get_user())
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask_login/utils.py", line 370, in _get_user
+    current_app.login_manager._load_user()
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask_login/login_manager.py", line 364, in _load_user
+    user = self._user_callback(user_id)
+  File "/var/www/hyyb/hyyb/extensions.py", line 32, in load_user
+    user = Admin.query.get(int(user_id))
+  File "<string>", line 2, in get
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/util/deprecations.py", line 386, in warned
+    return fn(*args, **kwargs)  # type: ignore[no-any-return]
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/query.py", line 1126, in get
+    return self._get_impl(ident, loading.load_on_pk_identity)
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/query.py", line 1135, in _get_impl
+    return self.session._get_impl(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 3873, in _get_impl
+    return db_load_fn(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/loading.py", line 694, in load_on_pk_identity
+    session.execute(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 2365, in execute
+    return self._execute_internal(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 2251, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1415, in execute
+    return meth(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/sql/elements.py", line 523, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1637, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1842, in _execute_context
+    return self._exec_single_context(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1982, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 2351, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1963, in _exec_single_context
+    self.dialect.do_execute(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/default.py", line 943, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such table: admin
+[SQL: SELECT admin.id AS admin_id, admin.username AS admin_username, admin.password_hash AS admin_password_hash, admin.privilege AS admin_privilege, admin.title AS admin_title, admin.othr AS admin_othr 
+FROM admin 
+WHERE admin.id = ?]
+[parameters: (1,)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-05-23 22:26:15,209 - hyyb - ERROR - Exception on /spare/spare/delete/2 [POST]
+Traceback (most recent call last):
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1963, in _exec_single_context
+    self.dialect.do_execute(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/default.py", line 943, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.OperationalError: attempt to write a readonly database
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask_login/utils.py", line 290, in decorated_view
+    return current_app.ensure_sync(func)(*args, **kwargs)
+  File "/var/www/hyyb/hyyb/blueprints/spare.py", line 97, in spare_delete
+    spare.delete()
+  File "/var/www/hyyb/hyyb/models.py", line 134, in delete
+    db.session.commit()
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/scoping.py", line 599, in commit
+    return self._proxied.commit()
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 2032, in commit
+    trans.commit(_to_root=True)
+  File "<string>", line 2, in commit
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/state_changes.py", line 139, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 1313, in commit
+    self._prepare_impl()
+  File "<string>", line 2, in _prepare_impl
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/state_changes.py", line 139, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 1288, in _prepare_impl
+    self.session.flush()
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 4345, in flush
+    self._flush(objects)
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 4480, in _flush
+    with util.safe_reraise():
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/util/langhelpers.py", line 224, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 4441, in _flush
+    flush_context.execute()
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/unitofwork.py", line 466, in execute
+    rec.execute(self)
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/unitofwork.py", line 642, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/persistence.py", line 85, in save_obj
+    _emit_update_statements(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/persistence.py", line 912, in _emit_update_statements
+    c = connection.execute(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1415, in execute
+    return meth(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/sql/elements.py", line 523, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1637, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1842, in _execute_context
+    return self._exec_single_context(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1982, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 2351, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1963, in _exec_single_context
+    self.dialect.do_execute(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/default.py", line 943, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) attempt to write a readonly database
+[SQL: UPDATE opt SET spare_id=? WHERE opt.id = ?]
+[parameters: (1, 8)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-05-23 22:26:19,214 - hyyb - ERROR - Exception on /spare/spare/delete/3 [POST]
+Traceback (most recent call last):
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1963, in _exec_single_context
+    self.dialect.do_execute(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/default.py", line 943, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.OperationalError: attempt to write a readonly database
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask_login/utils.py", line 290, in decorated_view
+    return current_app.ensure_sync(func)(*args, **kwargs)
+  File "/var/www/hyyb/hyyb/blueprints/spare.py", line 97, in spare_delete
+    spare.delete()
+  File "/var/www/hyyb/hyyb/models.py", line 134, in delete
+    db.session.commit()
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/scoping.py", line 599, in commit
+    return self._proxied.commit()
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 2032, in commit
+    trans.commit(_to_root=True)
+  File "<string>", line 2, in commit
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/state_changes.py", line 139, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 1313, in commit
+    self._prepare_impl()
+  File "<string>", line 2, in _prepare_impl
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/state_changes.py", line 139, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 1288, in _prepare_impl
+    self.session.flush()
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 4345, in flush
+    self._flush(objects)
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 4480, in _flush
+    with util.safe_reraise():
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/util/langhelpers.py", line 224, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 4441, in _flush
+    flush_context.execute()
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/unitofwork.py", line 466, in execute
+    rec.execute(self)
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/unitofwork.py", line 679, in execute
+    util.preloaded.orm_persistence.delete_obj(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/persistence.py", line 193, in delete_obj
+    _emit_delete_statements(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/persistence.py", line 1465, in _emit_delete_statements
+    c = connection.execute(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1415, in execute
+    return meth(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/sql/elements.py", line 523, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1637, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1842, in _execute_context
+    return self._exec_single_context(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1982, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 2351, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1963, in _exec_single_context
+    self.dialect.do_execute(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/default.py", line 943, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) attempt to write a readonly database
+[SQL: DELETE FROM spare WHERE spare.id = ?]
+[parameters: (3,)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-05-23 22:26:33,188 - hyyb - ERROR - Exception on /admin/department/11/delete [POST]
+Traceback (most recent call last):
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1932, in _exec_single_context
+    self.dialect.do_executemany(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/default.py", line 940, in do_executemany
+    cursor.executemany(statement, parameters)
+sqlite3.OperationalError: attempt to write a readonly database
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask_login/utils.py", line 290, in decorated_view
+    return current_app.ensure_sync(func)(*args, **kwargs)
+  File "/var/www/hyyb/hyyb/blueprints/admin.py", line 189, in delete_department
+    department.delete()
+  File "/var/www/hyyb/hyyb/models.py", line 100, in delete
+    stuffs = self.stuffs[:]
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/attributes.py", line 566, in __get__
+    return self.impl.get(state, dict_)  # type: ignore[no-any-return]
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/attributes.py", line 1086, in get
+    value = self._fire_loader_callables(state, key, passive)
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/attributes.py", line 1121, in _fire_loader_callables
+    return self.callable_(state, passive)
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/strategies.py", line 978, in _load_for_state
+    return self._emit_lazyload(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/strategies.py", line 1141, in _emit_lazyload
+    result = session.execute(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 2365, in execute
+    return self._execute_internal(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 2230, in _execute_internal
+    ) = compile_state_cls.orm_pre_session_exec(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/context.py", line 577, in orm_pre_session_exec
+    session._autoflush()
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 3065, in _autoflush
+    raise e.with_traceback(sys.exc_info()[2])
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 3054, in _autoflush
+    self.flush()
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 4345, in flush
+    self._flush(objects)
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 4480, in _flush
+    with util.safe_reraise():
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/util/langhelpers.py", line 224, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 4441, in _flush
+    flush_context.execute()
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/unitofwork.py", line 466, in execute
+    rec.execute(self)
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/unitofwork.py", line 642, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/persistence.py", line 85, in save_obj
+    _emit_update_statements(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/persistence.py", line 912, in _emit_update_statements
+    c = connection.execute(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1415, in execute
+    return meth(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/sql/elements.py", line 523, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1637, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1842, in _execute_context
+    return self._exec_single_context(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1982, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 2351, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1932, in _exec_single_context
+    self.dialect.do_executemany(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/default.py", line 940, in do_executemany
+    cursor.executemany(statement, parameters)
+sqlalchemy.exc.OperationalError: (raised as a result of Query-invoked autoflush; consider using a session.no_autoflush block if this flush is occurring prematurely)
+(sqlite3.OperationalError) attempt to write a readonly database
+[SQL: UPDATE hazard SET department_id=? WHERE hazard.id = ?]
+[parameters: [(1, 22), (1, 25), (1, 39), (1, 49)]]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-05-23 22:28:02,773 - hyyb - ERROR - Exception on /admin/link/4/delete [POST]
+Traceback (most recent call last):
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1963, in _exec_single_context
+    self.dialect.do_execute(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/default.py", line 943, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.OperationalError: attempt to write a readonly database
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask_login/utils.py", line 290, in decorated_view
+    return current_app.ensure_sync(func)(*args, **kwargs)
+  File "/var/www/hyyb/hyyb/blueprints/admin.py", line 76, in delete_link
+    db.session.commit()
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/scoping.py", line 599, in commit
+    return self._proxied.commit()
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 2032, in commit
+    trans.commit(_to_root=True)
+  File "<string>", line 2, in commit
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/state_changes.py", line 139, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 1313, in commit
+    self._prepare_impl()
+  File "<string>", line 2, in _prepare_impl
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/state_changes.py", line 139, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 1288, in _prepare_impl
+    self.session.flush()
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 4345, in flush
+    self._flush(objects)
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 4480, in _flush
+    with util.safe_reraise():
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/util/langhelpers.py", line 224, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 4441, in _flush
+    flush_context.execute()
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/unitofwork.py", line 466, in execute
+    rec.execute(self)
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/unitofwork.py", line 679, in execute
+    util.preloaded.orm_persistence.delete_obj(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/persistence.py", line 193, in delete_obj
+    _emit_delete_statements(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/persistence.py", line 1465, in _emit_delete_statements
+    c = connection.execute(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1415, in execute
+    return meth(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/sql/elements.py", line 523, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1637, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1842, in _execute_context
+    return self._exec_single_context(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1982, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 2351, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1963, in _exec_single_context
+    self.dialect.do_execute(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/default.py", line 943, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) attempt to write a readonly database
+[SQL: DELETE FROM link WHERE link.id = ?]
+[parameters: (4,)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-05-23 22:28:26,187 - hyyb - ERROR - Exception on /admin/link/4/delete [POST]
+Traceback (most recent call last):
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1963, in _exec_single_context
+    self.dialect.do_execute(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/default.py", line 943, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.OperationalError: attempt to write a readonly database
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/flask_login/utils.py", line 290, in decorated_view
+    return current_app.ensure_sync(func)(*args, **kwargs)
+  File "/var/www/hyyb/hyyb/blueprints/admin.py", line 76, in delete_link
+    db.session.commit()
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/scoping.py", line 599, in commit
+    return self._proxied.commit()
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 2032, in commit
+    trans.commit(_to_root=True)
+  File "<string>", line 2, in commit
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/state_changes.py", line 139, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 1313, in commit
+    self._prepare_impl()
+  File "<string>", line 2, in _prepare_impl
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/state_changes.py", line 139, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 1288, in _prepare_impl
+    self.session.flush()
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 4345, in flush
+    self._flush(objects)
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 4480, in _flush
+    with util.safe_reraise():
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/util/langhelpers.py", line 224, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 4441, in _flush
+    flush_context.execute()
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/unitofwork.py", line 466, in execute
+    rec.execute(self)
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/unitofwork.py", line 679, in execute
+    util.preloaded.orm_persistence.delete_obj(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/persistence.py", line 193, in delete_obj
+    _emit_delete_statements(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/orm/persistence.py", line 1465, in _emit_delete_statements
+    c = connection.execute(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1415, in execute
+    return meth(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/sql/elements.py", line 523, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1637, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1842, in _execute_context
+    return self._exec_single_context(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1982, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 2351, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1963, in _exec_single_context
+    self.dialect.do_execute(
+  File "/var/www/hyyb/hyyb/venv/lib/python3.10/site-packages/sqlalchemy/engine/default.py", line 943, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) attempt to write a readonly database
+[SQL: DELETE FROM link WHERE link.id = ?]
+[parameters: (4,)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)

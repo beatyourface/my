@@ -266,3 +266,7 @@ def register_request_handlers(app):
                     % (q.duration, q.context, q.statement)
                 )
         return response
+
+app = create_app('production')
+if __name__ == "__main__":
+        app.run()
